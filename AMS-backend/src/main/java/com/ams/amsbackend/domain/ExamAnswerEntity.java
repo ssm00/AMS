@@ -18,6 +18,7 @@ public class ExamAnswerEntity {
 
     private Integer examNumber;
 
+    @Enumerated(EnumType.STRING)
     private Subject subject;
 
     private Integer numberOfQuestion;
