@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("T")
+@DiscriminatorValue("TEACHER")
 @Entity
 public class TeacherEntity extends UserEntity{
 

@@ -9,9 +9,10 @@ import javax.persistence.*;
 
 
 @Getter
-@Table(name = "users")
 @SuperBuilder
 @NoArgsConstructor
+@Table(name = "users")
+@DiscriminatorColumn
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 public class UserEntity {
