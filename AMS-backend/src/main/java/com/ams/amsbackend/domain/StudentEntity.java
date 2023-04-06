@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
+@DiscriminatorValue("STUDENT")
 @Entity
 public class StudentEntity extends UserEntity {
 
@@ -32,6 +33,16 @@ public class StudentEntity extends UserEntity {
         this.school = school;
         this.grade = grade;
         this.className = className;
+    }
+
+    /**
+     * 연관관계 편의 메서드
+     * 비즈니스 로직 student를 기준으로 시험을 본 뒤 자신의 시험결과 리스트에추가
+     * @Author SSM00
+     */
+    public void addStudentAnswer(StudentAnswerEntity studentAnswerEntity) {
+        studentAnswerList.add(studentAnswerEntity);
+        studentAnswerEntity.setStudentEntity(this);
     }
 
 }
