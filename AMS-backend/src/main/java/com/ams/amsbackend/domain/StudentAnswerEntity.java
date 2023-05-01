@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -23,15 +25,19 @@ public class StudentAnswerEntity {
 
     private Integer examNumber;
 
+    private String correctAnswer;
+
+    private String incorrectAnswer;
+
+    private String examSubject;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private StudentEntity studentEntity;
 
     @Builder
-    public StudentAnswerEntity(Integer studentScore, String studentAnswer, Integer studentRank, Integer examNumber) {
-        this.studentScore = studentScore;
+    public StudentAnswerEntity(String studentAnswer, Integer examNumber) {
         this.studentAnswer = studentAnswer;
-        this.studentRank = studentRank;
         this.examNumber = examNumber;
     }
 
