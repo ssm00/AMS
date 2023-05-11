@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -40,7 +38,6 @@ public class StudentAnswerEntity {
         this.studentAnswer = studentAnswer;
         this.examNumber = examNumber;
     }
-
 
     public void setStudentEntity(StudentEntity studentEntity) {
         this.studentEntity = studentEntity;
