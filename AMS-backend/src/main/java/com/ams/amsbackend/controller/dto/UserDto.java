@@ -8,7 +8,7 @@ import java.util.List;
 public class UserDto {
     @Getter
     @AllArgsConstructor
-    public class PostInputAnswersReq {
+    public static class PostInputAnswersReq {
         private int examNumber;
         private String examSubject;
         private String studentAnswer;
@@ -16,18 +16,19 @@ public class UserDto {
     @Getter
     @AllArgsConstructor
     @Builder
-    public class PostGradeCardInfoRes {
+    public static class PostGradeCardInfoRes {
         private int totalStudents;
         private int studentRank;
         private int perfectScore;
         private int studentScore;
         private int examNumber;
+        private String examSubject;
         private List<EachProblemInfo> eachProblemInfoList;
     }
     @Getter
     @AllArgsConstructor
     @Builder
-    public class EachProblemInfo {
+    public static class EachProblemInfo {
         private int problemNumber;
         private String examAnswer;
         private String studentAnswer;
@@ -36,13 +37,13 @@ public class UserDto {
     @Getter
     @AllArgsConstructor
     @Builder
-    public class GetGradeGraphRes {
+    public static class GetGradeGraphRes {
         private List<EachExamNumberInfo> eachExamNumberInfos;
     }
     @Getter
     @AllArgsConstructor
     @Builder
-    public class EachExamNumberInfo {
+    public static class EachExamNumberInfo {
         private int examNumber;
         private int studentScore;
         private int studentRank;

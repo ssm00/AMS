@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExamAnswerRepository extends JpaRepository<ExamAnswerEntity, Long>{
-    ExamAnswerEntity findAllByExamId(Long examId);
+    ExamAnswerEntity findAllByExamNumberAndSubject(int examNumber, String subject);
 }
