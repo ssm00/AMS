@@ -2,6 +2,8 @@ package com.ams.amsbackend.repository;
 
 import com.ams.amsbackend.domain.StudentAnswerEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
+
+import com.ams.amsbackend.domain.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @Repository
 public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEntity,Long> {
 
+
     /**
      * studentAnswerEntity에서 studentEntity 의 name 항상 접근
      * fetch join 사용
@@ -25,5 +28,8 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      */
     @EntityGraph(attributePaths = {"studentEntity"})
     List<StudentAnswerEntity> findTop5ByExamNumberOrderByStudentScoreDesc(Integer examNumber);
+
+    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
+    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
 
 }

@@ -29,7 +29,7 @@ public class RankingController {
                 .top5StudentList(top5Student)
                 .build();
         return new BaseResponse(response);
-    }
+
 
     @PostMapping("wrong-rate")
     public BaseResponse<?> wrong_rate() {

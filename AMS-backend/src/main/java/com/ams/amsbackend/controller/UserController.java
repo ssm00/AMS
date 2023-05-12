@@ -8,51 +8,50 @@ import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 
-@RequiredArgsConstructor
-@RequestMapping("/users/")
 @RestController
+@RequestMapping("/users/")
+@RequiredArgsConstructor
 public class UserController {
 
-    private UserService userService;
-    private UserDto userDto;
+    private final UserService userService;
 
-    public UserController(UserService userService, UserDto userDto) {
-        this.userService = userService;
-        this.userDto = userDto;
-    }
 
     @PostMapping("sing-up")
     public BaseResponse<?> singUp() {
-
+        return null;
     }
 
     @PostMapping("log-in")
     public BaseResponse<?> logIn() {
-
+        return null;
     }
 
+    @ResponseBody
     @PostMapping("grade-card")
-    public BaseResponse<?> getGradeCardInfo() {
-        //°³ÀÎ ¼ºÀûÇ¥(µî¼ö, ¿À´ä·ü, Á¡¼ö)
-        // input = userId(Student), examNumber(½ÃÇè È¸Â÷)
-        // output = ÀüÃ¼ ÀÀ½Ã ÇĞ»ı ¼ö, µî¼ö(studentRank), ¸¸Á¡(100), Á¡¼ö(studentScore), È¸Â÷(examNumber), °¢ ¹øÈ£º° Á¤º¸(Á¤´ä(ExamAnswer.examAnswer, ÇĞ»ıÀÌ ÀûÀº ´ä(StudentAnswer.studentAnswer), ¿À´ä·ü)
-
+    public BaseResponse<UserDto.PostGradeCardInfoRes> getGradeCardInfo(@RequestBody int examNumber, String examSubject) {
+        //ê°œì¸ ì„±ì í‘œ(ë“±ìˆ˜, ì˜¤ë‹µë¥ , ì ìˆ˜)
+        // input = userId(Student), examNumber(ì‹œí—˜ íšŒì°¨). examSubject(ì‹œí—˜ ê³¼ëª©)
+        // output = ì „ì²´ ì‘ì‹œ í•™ìƒ ìˆ˜, ë“±ìˆ˜(studentRank), ë§Œì (100), ì ìˆ˜(studentScore), íšŒì°¨(examNumber), ê° ë²ˆí˜¸ë³„ ì •ë³´(ì •ë‹µ(ExamAnswer.examAnswer, í•™ìƒì´ ì ì€ ë‹µ(StudentAnswer.studentAnswer), ì˜¤ë‹µë¥ )
+        Long userId = null;
+        UserDto.PostGradeCardInfoRes gradeCardInfo = this.userService.getGradeCardeInfo(userId, examNumber, examSubject);
+        return new BaseResponse<>(gradeCardInfo);
     }
 
     @GetMapping("grade-graph")
-    public BaseResponse<?> getGradeGraphInfo() {
-        // °³ÀÎ ¼ºÀû±×·¡ÇÁ
+    public BaseResponse<UserDto.GetGradeGraphRes> getGradeGraphInfo() {
+        // ê°œì¸ ì„±ì ê·¸ë˜í”„
         // input = userId(Student)
-        // output = ¸ğµç È¸Â÷º°(È¸Â÷, ÇØ´ç È¸Â÷ Á¡¼ö, ÇØ´ç È¸Â÷ µî¼ö(³» µî¼ö/ÀüÃ¼ ÇĞ»ı ¼ö))
+        // output = ëª¨ë“  íšŒì°¨ë³„(íšŒì°¨, í•´ë‹¹ íšŒì°¨ ì ìˆ˜, í•´ë‹¹ íšŒì°¨ ë“±ìˆ˜(ë‚´ ë“±ìˆ˜/ì „ì²´ í•™ìƒ ìˆ˜))
 
-
+        return null;
     }
 
+    @ResponseBody
     @PostMapping("answers")
-    public BaseResponse<?> () inputAnswers(@RequestBody UserDto.GetStudentAnswerInput){
-        // ÇĞ»ı Á¤´ä ÀÔ·Â
-        // input = userId(Student), È¸Â÷(examNumber), °ú¸ñ(examSubject), ÇĞ»ıÀÌ ÀÛ¼ºÇÑ Á¤´ä(studentAnswer),
-        // output = ÀúÀå ¼º°ø ¿©ºÎ
-
+    public BaseResponse<String> inputAnswers(@RequestBody UserDto.PostInputAnswersReq studentInput){
+        // í•™ìƒ ì •ë‹µ ì…ë ¥
+        // input = userId(Student), íšŒì°¨(examNumber), ê³¼ëª©(examSubject), í•™ìƒì´ ì‘ì„±í•œ ì •ë‹µ(studentAnswer),
+        // output = ì €ì¥ ì„±ê³µ ì—¬ë¶€
+        return null;
     }
 }
