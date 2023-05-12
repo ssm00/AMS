@@ -15,7 +15,7 @@ public class RankingController {
 
     @PostMapping("top-score")
     public BaseResponse<PostTopFiveStudentInfoRes> topScore(@RequestBody PostExamInfoReq rankingRequestDto) {
-
+        return null;
     }
 
     @PostMapping("wrong-rate")

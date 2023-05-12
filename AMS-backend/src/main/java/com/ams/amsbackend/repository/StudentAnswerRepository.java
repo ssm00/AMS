@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEntity,Long> {
         int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
-        StudentAnswerEntity findAllByExamNumberAndExamSubjectAndUserId(Long userId, int examNumber, String examSubject);
+        StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
 }
