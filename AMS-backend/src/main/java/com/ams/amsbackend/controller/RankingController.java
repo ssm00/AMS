@@ -3,6 +3,7 @@ package com.ams.amsbackend.controller;
 import com.ams.amsbackend.controller.dto.EachStudentInfo;
 import com.ams.amsbackend.controller.dto.PostExamInfoReq;
 import com.ams.amsbackend.controller.dto.PostTopFiveStudentInfoRes;
+import com.ams.amsbackend.controller.dto.PostTopFiveWrongRateRes;
 import com.ams.amsbackend.service.RankingService;
 import com.ams.amsbackend.util.BaseResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,18 @@ public class RankingController {
     @PostMapping("top5-score")
     public BaseResponse<PostTopFiveStudentInfoRes> top5Score(@RequestBody PostExamInfoReq rankingRequestDto) {
         Integer examNumber = rankingRequestDto.getExamNumber();
-        List<EachStudentInfo> top5Student = rankingService.findTop5Student(examNumber);
+        String examSubject = rankingRequestDto.getExamSubject();
+        List<EachStudentInfo> top5Student = rankingService.findTop5Student(examNumber,examSubject);
         PostTopFiveStudentInfoRes response = PostTopFiveStudentInfoRes.builder()
                 .examNumber(examNumber)
+                .examSubject(examSubject)
                 .top5StudentList(top5Student)
                 .build();
         return new BaseResponse(response);
     }
 
     @PostMapping("wrong-rate")
-    public BaseResponse<?> wrong_rate() {
+    public BaseResponse<PostTopFiveWrongRateRes> wrong_rate() {
         return null;
     }
 
