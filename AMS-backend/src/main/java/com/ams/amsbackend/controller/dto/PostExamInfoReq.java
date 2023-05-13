@@ -8,5 +8,5 @@ import lombok.Getter;
 @Builder
 public class PostExamInfoReq {
     private Integer examNumber;
-
+    private String examSubject;
 }
