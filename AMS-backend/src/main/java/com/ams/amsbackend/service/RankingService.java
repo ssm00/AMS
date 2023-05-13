@@ -16,9 +16,9 @@ public class RankingService {
 
     private final StudentAnswerRepository studentAnswerRepository;
 
-    public List<EachStudentInfo> findTop5Student(Integer examNumber) {
+    public List<EachStudentInfo> findTop5Student(Integer examNumber, String examSubject) {
         List<EachStudentInfo> top5studentList = new ArrayList<>();
-        List<StudentAnswerEntity> top5ScoreStudentAnswer = studentAnswerRepository.findTop5ByExamNumberOrderByStudentScoreDesc(examNumber);
+        List<StudentAnswerEntity> top5ScoreStudentAnswer = studentAnswerRepository.findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(examNumber,examSubject);
         for (StudentAnswerEntity studentAnswerEntity : top5ScoreStudentAnswer) {
             Integer studentScore = studentAnswerEntity.getStudentScore();
             Integer studentRank = studentAnswerEntity.getStudentRank();
