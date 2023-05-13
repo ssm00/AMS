@@ -27,7 +27,7 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      * 메소드 이름 줄이기 가능... 나중에 고민ㄱ
      */
     @EntityGraph(attributePaths = {"studentEntity"})
-    List<StudentAnswerEntity> findTop5ByExamNumberOrderByStudentScoreDesc(Integer examNumber);
+    List<StudentAnswerEntity> findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(Integer examNumber, String examSubject);
 
     int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
     StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
