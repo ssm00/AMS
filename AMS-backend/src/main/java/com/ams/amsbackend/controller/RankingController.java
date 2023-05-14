@@ -1,9 +1,6 @@
 package com.ams.amsbackend.controller;
 
-import com.ams.amsbackend.controller.dto.EachStudentInfo;
-import com.ams.amsbackend.controller.dto.PostExamInfoReq;
-import com.ams.amsbackend.controller.dto.PostTopFiveStudentInfoRes;
-import com.ams.amsbackend.controller.dto.PostTopFiveWrongRateRes;
+import com.ams.amsbackend.controller.dto.*;
 import com.ams.amsbackend.service.RankingService;
 import com.ams.amsbackend.util.BaseResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +31,20 @@ public class RankingController {
         return new BaseResponse(response);
     }
 
+    /**
+     * ex) 2회차 시험 오답률 1~5등
+     */
     @PostMapping("wrong-rate")
-    public BaseResponse<PostTopFiveWrongRateRes> wrong_rate() {
-        return null;
+    public BaseResponse<PostTopFiveWrongRateRes> wrong_rate(@RequestBody PostExamInfoReq rankingRequestDto) {
+        Integer examNumber = rankingRequestDto.getExamNumber();
+        String examSubject = rankingRequestDto.getExamSubject();
+        List<EachWrongRateInfo> top5WrongRate = rankingService.findTop5WrongRate(examNumber, examSubject);
+        PostTopFiveWrongRateRes response = PostTopFiveWrongRateRes.builder()
+                .examNumber(examNumber)
+                .examSubject(examSubject)
+                .wrongRateInfoList(top5WrongRate)
+                .build();
+        return new BaseResponse(response);
     }
 
     @GetMapping("user-score")
