@@ -43,7 +43,7 @@ public class UserController {
         // input = userId(Student)
         // output = 모든 회차별(회차, 해당 회차 점수, 해당 회차 등수(내 등수/전체 학생 수))
 
-        return null;
+        return new BaseResponse<>(null);
     }
 
     @ResponseBody
@@ -52,6 +52,18 @@ public class UserController {
         // 학생 정답 입력
         // input = userId(Student), 회차(examNumber), 과목(examSubject), 학생이 작성한 정답(studentAnswer),
         // output = 저장 성공 여부
-        return null;
+        return new BaseResponse<>(null);
+    }
+    @GetMapping("mark-score")
+    public BaseResponse<String> markScore() {
+        // 채점하기
+        // input = userId(Teacher)
+        // output = "채점이 완료되었습니다."
+
+        return new BaseResponse<>(null);
+    }
+    @GetMapping("test")
+    public BaseResponse<String> inputAnswers(){
+        return new BaseResponse<>("test");
     }
 }
