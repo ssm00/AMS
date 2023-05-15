@@ -31,5 +31,5 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
 
     int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
     StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
-
+    List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(int examNumber, String examSubject);
 }

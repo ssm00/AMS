@@ -28,12 +28,12 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("grade-card")
-    public BaseResponse<UserDto.PostGradeCardInfoRes> getGradeCardInfo(@RequestBody int examNumber, String examSubject) {
+    public BaseResponse<UserDto.PostGradeCardInfoRes> getGradeCardInfo(@RequestBody UserDto.BasicGetExamInfo examInfo) {
         //개인 성적표(등수, 오답률, 점수)
         // input = userId(Student), examNumber(시험 회차). examSubject(시험 과목)
         // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber), 각 번호별 정보(정답(ExamAnswer.examAnswer, 학생이 적은 답(StudentAnswer.studentAnswer), 오답률)
         Long userId = null;
-        UserDto.PostGradeCardInfoRes gradeCardInfo = this.userService.getGradeCardeInfo(userId, examNumber, examSubject);
+        UserDto.PostGradeCardInfoRes gradeCardInfo = this.userService.getGradeCardeInfo(userId, examInfo.getExamNumber(), examInfo.getExamSubject());
         return new BaseResponse<>(gradeCardInfo);
     }
 

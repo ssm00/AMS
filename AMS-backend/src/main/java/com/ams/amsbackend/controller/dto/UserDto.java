@@ -16,6 +16,13 @@ public class UserDto {
     @Getter
     @AllArgsConstructor
     @Builder
+    public static class BasicGetExamInfo {
+        private int examNumber;
+        private String examSubject;
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
     public static class PostGradeCardInfoRes {
         private int totalStudents;
         private int studentRank;
