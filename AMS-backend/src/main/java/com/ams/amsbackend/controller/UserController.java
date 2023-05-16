@@ -10,7 +10,6 @@ import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponse;
 import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,7 +20,6 @@ public class UserController {
 
     private final UserService userService;
     private final TokenProvider tokenProvider;
-
 
     /**
      * 회원가입
