@@ -1,5 +1,6 @@
 package com.ams.amsbackend.controller.dto;
 
+import com.ams.amsbackend.domain.Subject;
 import lombok.*;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
 public class UserDto {
     @Getter
     @AllArgsConstructor
-    public static class PostInputAnswersReq {
+    public static class PostInputStudentAnswersReq {
         private int examNumber;
-        private String examSubject;
+        private Subject examSubject;
         private String studentAnswer;
     }
     @Getter
@@ -18,7 +19,7 @@ public class UserDto {
     @Builder
     public static class BasicGetExamInfo {
         private int examNumber;
-        private String examSubject;
+        private Subject examSubject;
     }
     @Getter
     @AllArgsConstructor
@@ -29,7 +30,7 @@ public class UserDto {
         private int perfectScore;
         private int studentScore;
         private int examNumber;
-        private String examSubject;
+        private Subject examSubject;
         private List<EachProblemInfo> eachProblemInfoList;
     }
     @Getter
@@ -52,6 +53,7 @@ public class UserDto {
     @Builder
     public static class EachExamNumberInfo {
         private int examNumber;
+        private Subject subject;
         private int studentScore;
         private int studentRank;
         private int totalStudents;

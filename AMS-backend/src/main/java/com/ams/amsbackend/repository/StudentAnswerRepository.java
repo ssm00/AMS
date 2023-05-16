@@ -1,6 +1,7 @@
 package com.ams.amsbackend.repository;
 
 import com.ams.amsbackend.domain.StudentAnswerEntity;
+import com.ams.amsbackend.domain.Subject;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import com.ams.amsbackend.domain.StudentEntity;
@@ -29,7 +30,8 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
     @EntityGraph(attributePaths = {"studentEntity"})
     List<StudentAnswerEntity> findTop5ByExamNumberOrderByStudentScoreDesc(Integer examNumber);
 
-    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
-    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
-    List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(int examNumber, String examSubject);
+    int countStudentAnswerEntitiesByExamNumberAndExamSubject(Integer examNumber, Subject examSubject);
+    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, Integer examNumber, Subject examSubject);
+    List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(Integer examNumber, Subject examSubject);
+    List<StudentAnswerEntity> findStudentAnswerEntitiesByStudentEntity(StudentEntity studentEntity);
 }

@@ -17,8 +17,8 @@ public class ExamAnswerEntity {
     private String examGrade;
 
     private Integer examNumber;
-
-    private String subject;
+    @Enumerated(EnumType.STRING)
+    private Subject subject;
 
     private Integer numberOfQuestion;
 
@@ -27,7 +27,7 @@ public class ExamAnswerEntity {
     private String examAnswer;
 
     @Builder
-    public ExamAnswerEntity(String examGrade, Integer examNumber, String subject, Integer numberOfQuestion, String allotment, String examAnswer) {
+    public ExamAnswerEntity(String examGrade, Integer examNumber, Subject subject, Integer numberOfQuestion, String allotment, String examAnswer) {
         this.examGrade = examGrade;
         this.examNumber = examNumber;
         this.subject = subject;

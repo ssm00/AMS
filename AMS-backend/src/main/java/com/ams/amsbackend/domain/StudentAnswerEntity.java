@@ -27,17 +27,19 @@ public class StudentAnswerEntity {
     private String correctAnswer;
     @ColumnDefault("")
     private String incorrectAnswer;
-
-    private String examSubject;
+    @Enumerated(EnumType.STRING)
+    private Subject examSubject;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private StudentEntity studentEntity;
 
     @Builder
-    public StudentAnswerEntity(String studentAnswer, Integer examNumber) {
+    public StudentAnswerEntity(String studentAnswer, Integer examNumber, Subject examSubject, StudentEntity studentEntity) {
         this.studentAnswer = studentAnswer;
         this.examNumber = examNumber;
+        this.examSubject = examSubject;
+        this.studentEntity = studentEntity;
     }
 
     public void setStudentEntity(StudentEntity studentEntity) {
@@ -55,6 +57,9 @@ public class StudentAnswerEntity {
     public void updateStudentScore(int score){
         if(this.studentScore == null) this.studentScore = score;
         else this.studentScore = this.studentScore + score;
+    }
+    public void updateStudentRank(int rank){
+        this.studentRank = rank;
     }
 }
 
