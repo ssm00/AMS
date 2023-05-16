@@ -29,13 +29,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             //요청에서 토큰 가져오기
             String token = parseBearerToken(request);
-            log.info("Filter is running");
-
             //토큰 검사하기 jwt는 인가서버에 요청하지 않고도 검증 가능.
             if (token != null && !token.equalsIgnoreCase("null")) {
                 //일치하지 않으면 exception터짐
                 String userLogInId = tokenProvider.validateAndGetLogInId(token);
-                log.info("authenticated id : " + userLogInId);
 
                 //securityHolder에 등록할 authentication생성
                 //@AuthenticationPrincipal userLoginID
