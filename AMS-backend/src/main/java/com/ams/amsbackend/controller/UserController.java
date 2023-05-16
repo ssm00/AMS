@@ -1,11 +1,10 @@
 package com.ams.amsbackend.controller;
 
-import com.ams.amsbackend.controller.dto.PostLogInReq;
-import com.ams.amsbackend.controller.dto.PostSignUpReq;
-import com.ams.amsbackend.controller.dto.PostSignUpRes;
-import com.ams.amsbackend.controller.dto.UserDto;
+import com.ams.amsbackend.controller.dto.*;
 import com.ams.amsbackend.domain.SchoolType;
 import com.ams.amsbackend.domain.Subject;
+import com.ams.amsbackend.domain.UserEntity;
+import com.ams.amsbackend.security.TokenProvider;
 import com.ams.amsbackend.service.UserService;
 import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponse;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final TokenProvider tokenProvider;
 
 
     /**
@@ -29,7 +29,7 @@ public class UserController {
      */
     @PostMapping("sign-up")
     public BaseResponse<PostSignUpRes> singUp(@RequestBody PostSignUpReq signUpDto) {
-        if (signUpDto.getType().isBlank()) {
+        if (signUpDto.getType() == null) {
             return new BaseResponse(BaseResponseStatus.NO_USER_TYPE);
         }
         String userName = signUpDto.getName();
@@ -56,8 +56,23 @@ public class UserController {
     }
 
     @PostMapping("log-in")
-    public BaseResponse<?> logIn(@RequestBody PostLogInReq logInDto) {
-
+    public BaseResponse<PostLogInRes> logIn(@RequestBody PostLogInReq logInDto) {
+        String logInId = logInDto.getLogInId();
+        String password = logInDto.getPassword();
+        UserEntity userEntity = null;
+        try {
+            userEntity = userService.logIn(logInId, password);
+        } catch (BaseException e) {
+            return new BaseResponse(e.getStatus());
+        }
+        final String token = tokenProvider.create(userEntity);
+        PostLogInRes postLogInRes = PostLogInRes.builder()
+                .token(token)
+                .userName(userEntity.getName())
+                .email(userEntity.getEmail())
+                .logInId(userEntity.getLoginId())
+                .build();
+        return new BaseResponse(postLogInRes);
     }
 
 //    @ResponseBody
