@@ -34,7 +34,7 @@ public class UserController {
         // input = userId(Student), examNumber(시험 회차). examSubject(시험 과목)
         // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber), 각 번호별 정보(정답(ExamAnswer.examAnswer, 학생이 적은 답(StudentAnswer.studentAnswer), 오답률)
         try {
-            UserDto.PostGradeCardInfoRes gradeCardInfo = this.userService.getGradeCardeInfo(userId, examInfo);
+            UserDto.PostGradeCardInfoRes gradeCardInfo = this.userService.getGradeCardInfo(userId, examInfo);
             return new BaseResponse<>(gradeCardInfo);
         }catch (BaseException e){
             return new BaseResponse<>(e.getStatus());
@@ -62,7 +62,7 @@ public class UserController {
         // output = 저장 성공 여부
         try {
             String result = this.userService.inputStudentAnswers(userId, studentInput);
-            return new BaseResponse<>(null);
+            return new BaseResponse<>(result);
         } catch (BaseException e){
             return new BaseResponse<>(e.getStatus());
         }

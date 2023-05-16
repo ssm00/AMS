@@ -4,30 +4,33 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@DynamicInsert
 public class StudentAnswerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long examStudentId;
-    @ColumnDefault("0")
+
     private Integer studentScore;
-
+    @Column(nullable = false)
     private String studentAnswer;
-    @ColumnDefault("0")
-    private Integer studentRank;
 
+    private Integer studentRank;
+    @Column(nullable = false)
     private Integer examNumber;
-    @ColumnDefault("")
+    @ColumnDefault("null")
     private String correctAnswer;
-    @ColumnDefault("")
+    @ColumnDefault("null")
     private String incorrectAnswer;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Subject examSubject;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,11 +50,11 @@ public class StudentAnswerEntity {
     }
 
     public void updateCorrectAnswer(int correctAnswer){
-        if(this.correctAnswer == null || this.correctAnswer.equals("")) this.correctAnswer = correctAnswer+"";
+        if(this.correctAnswer == null || this.correctAnswer.equals("null")) this.correctAnswer = correctAnswer+"";
         else this.correctAnswer = this.correctAnswer + "," + correctAnswer;
     }
     public void updateIncorrectAnswer(int incorrectAnswer){
-        if(this.incorrectAnswer == null || this.incorrectAnswer.equals("")) this.incorrectAnswer = incorrectAnswer+"";
+        if(this.incorrectAnswer == null || this.incorrectAnswer.equals("null")) this.incorrectAnswer = incorrectAnswer+"";
         else this.incorrectAnswer = this.incorrectAnswer + "," + incorrectAnswer;
     }
     public void updateStudentScore(int score){

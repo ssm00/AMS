@@ -14,6 +14,7 @@ public class TeacherDto {
     @AllArgsConstructor
     @Builder
     public static class BasicGetExamInfo {
+        private int grade;
         private int examNumber;
         private Subject examSubject;
     }
@@ -22,8 +23,10 @@ public class TeacherDto {
     @AllArgsConstructor
     @Builder
     public static class PostDistributionTableRes {
+        private int grade;
         private int examNumber;
         private Subject examSubject;
+        private int takeStudentCount;
         List<EachStudentScore> eachStudentScoreList;
     }
     @Getter
@@ -38,13 +41,16 @@ public class TeacherDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class GetAverageGraphReq {
+        private int grade;
         private Subject examSubject;
     }
     @Getter
     @AllArgsConstructor
     @Builder
     public static class GetAverageGraphRes {
+        private int grade;
         private Subject examSubject;
+        private int takeStudentCount;
         List<EachAverageScore> eachAverageScoreList;
     }
     @Getter
@@ -57,14 +63,18 @@ public class TeacherDto {
     @Getter
     @AllArgsConstructor
     public static class PostInputAnswersReq {
+        private int examGrade;
         private int examNumber;
-        private Subject examSubject;
-        private String answer;
+        private Subject subject;
+        private int numberOfQuestion;
+        private String allotment;
+        private String examAnswer;
     }
     @Getter
     @AllArgsConstructor
     @Builder
     public static class getToDoMarkCountRes {
+        private int grade;
         private int examNumber;
         private Subject examSubject;
         private int numberOfStudent;

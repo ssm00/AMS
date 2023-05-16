@@ -14,7 +14,7 @@ public class ExamAnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long examId;
 
-    private String examGrade;
+    private Integer examGrade;
 
     private Integer examNumber;
     @Enumerated(EnumType.STRING)
@@ -27,7 +27,7 @@ public class ExamAnswerEntity {
     private String examAnswer;
 
     @Builder
-    public ExamAnswerEntity(String examGrade, Integer examNumber, Subject subject, Integer numberOfQuestion, String allotment, String examAnswer) {
+    public ExamAnswerEntity(Integer examGrade, Integer examNumber, Subject subject, Integer numberOfQuestion, String allotment, String examAnswer) {
         this.examGrade = examGrade;
         this.examNumber = examNumber;
         this.subject = subject;
