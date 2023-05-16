@@ -63,7 +63,6 @@ public class UserService {
         StudentEntity studentEntity = new StudentEntity(logInId, userName, email, password, Role.ROLE_USER, schoolType, schoolName, grade, className);
         return studentRepository.save(studentEntity);
     }
-    
 
     /**
      * 선생님 회원가입
@@ -79,6 +78,20 @@ public class UserService {
         }
         TeacherEntity teacherEntity = new TeacherEntity(logInId, userName, email, password, Role.ROLE_USER, subject, manageGrade, schoolType);
         return teacherRepository.save(teacherEntity);
+    }
+
+    public UserEntity logIn(String logInId, String password) throws BaseException {
+        if (logInId == null) {
+            throw new BaseException(BaseResponseStatus.POST_USERS_EMPTY_LOGINID);
+        }
+        if (password == null) {
+            throw new BaseException(BaseResponseStatus.POST_USERS_EMPTY_PASSWORD);
+        }
+        UserEntity userEntity = userRepository.findByLoginIdAndPassword(logInId, password);
+        if (userEntity == null) {
+            throw new BaseException(BaseResponseStatus.FAILED_TO_LOGIN);
+        }
+        return userEntity;
     }
 
 
