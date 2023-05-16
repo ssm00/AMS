@@ -30,20 +30,20 @@ public class RankingService {
 
     public List<EachStudentInfo> findTop5Student(Integer examNumber, Subject examSubject) throws BaseException {
         if (examNumber == null || examSubject == null) {
-            throw new BaseException(BaseResponseStatus.PARAMTOP5STUDENTNULL);
+            throw new BaseException(BaseResponseStatus.PARAM_TOP5_STUDENT_NULL);
         }
         List<EachStudentInfo> top5studentList = new ArrayList<>();
         List<StudentAnswerEntity> top5ScoreStudentAnswer = studentAnswerRepository.findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(examNumber,examSubject);
         if (top5ScoreStudentAnswer.isEmpty()) {
             // 데이터를 찾지 못한 경우 예외 처리
-            throw new BaseException(BaseResponseStatus.JPATOP5STUDENTNULL);
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_STUDENT_NULL);
         }
         for (StudentAnswerEntity studentAnswerEntity : top5ScoreStudentAnswer) {
             Integer studentScore = studentAnswerEntity.getStudentScore();
             Integer studentRank = studentAnswerEntity.getStudentRank();
             String studentName = studentAnswerEntity.getStudentEntity().getName();
             if (studentScore == null || studentRank == null || studentName == null) {
-                throw new BaseException(BaseResponseStatus.STUDENTANSWERNULL);
+                throw new BaseException(BaseResponseStatus.STUDENT_ANSWER_NULL);
             }
             EachStudentInfo eachStudentInfo = EachStudentInfo.builder()
                     .studentScore(studentScore)
@@ -58,13 +58,13 @@ public class RankingService {
     public List<EachWrongRateInfo> findTop5WrongRate(Integer examNumber, Subject examSubject) throws BaseException{
         ArrayList<EachWrongRateInfo> top5WrongRateList = new ArrayList<>();
         if (examNumber == null || examSubject == null) {
-            throw new BaseException(BaseResponseStatus.PARAMTOP5WRONGRATENULL);
+            throw new BaseException(BaseResponseStatus.PARAM_TOP5_WRONGRATE_NULL);
         }
         List<StudentAnswerEntity> studentAnswerList = studentAnswerRepository.findAllByExamNumberAndExamSubject(examNumber, examSubject);
         ExamAnswerEntity examAnswerEntity = examAnswerRepository.findAllByExamNumberAndSubject(examNumber, examSubject);
         if (studentAnswerList.isEmpty() || examAnswerEntity == null) {
             // 데이터를 찾지 못한 경우 RuntimeException 처리
-            throw new BaseException(BaseResponseStatus.JPATOP5WRONGRATENULL);
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_WRONGRATE_NULL);
         }
         HashMap<String, Integer> wrongRateTable = makeWrongRateTable(studentAnswerList);
         List<Map.Entry<String, Integer>> descWrongRate = tableDescByValues(wrongRateTable);
@@ -117,18 +117,18 @@ public class RankingService {
 
     public List<EachScoreInfo> findTop5Score(Long userId) throws BaseException{
         if (userId == null) {
-            throw new BaseException(BaseResponseStatus.JPATOP5SCORE);
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
         }
         ArrayList<EachScoreInfo> top5ScoreList = new ArrayList<>();
         Optional<StudentEntity> studentEntity = studentRepository.findById(userId);
         if (!studentEntity.isPresent()) {
             // 데이터를 찾지 못한 경우 RuntimeException 처리
-            throw new BaseException(BaseResponseStatus.JPATOP5SCORE);
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
         }
         List<StudentAnswerEntity> studentAnswerList = studentEntity.get().getStudentAnswerList();
         if (studentAnswerList.isEmpty()) {
             // 데이터가 없는 경우 RuntimeException 처리
-            throw new BaseException(BaseResponseStatus.ENTITYGRAPHTOP5SCORE);
+            throw new BaseException(BaseResponseStatus.ENTITYGRAPH_TOP5_SCORE);
         }
         studentAnswerList.sort((studentAnswerEntity1,studentAnswerEntity2) -> studentAnswerEntity2.getStudentScore() - studentAnswerEntity1.getStudentScore());
         Stream<StudentAnswerEntity> top5StudentAnswer = studentAnswerList.stream().limit(5);
