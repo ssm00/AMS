@@ -28,7 +28,7 @@ public class RankingController {
         Subject examSubject = rankingRequestDto.getExamSubject();
         List<EachStudentInfo> top5Student = null;
         try {
-            top5Student = rankingService.findTop5Student(examNumber,examSubject);
+            top5Student = rankingService.findTop5Student(examNumber, examSubject);
         } catch (BaseException e) {
             return new BaseResponse(e.getStatus());
         }
