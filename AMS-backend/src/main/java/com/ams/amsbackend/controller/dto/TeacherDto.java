@@ -36,6 +36,7 @@ public class TeacherDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class GetAverageGraphReq {
         private Subject examSubject;
     }

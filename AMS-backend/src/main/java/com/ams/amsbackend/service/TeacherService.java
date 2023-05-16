@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -84,9 +85,53 @@ public class TeacherService {
         }
     }
 
-    public TeacherDto.GetAverageGraphRes getAverageGraph(TeacherDto.GetAverageGraphReq requestInfo) {
+    public TeacherDto.GetAverageGraphRes getAverageGraph(TeacherDto.GetAverageGraphReq requestInfo) throws BaseException{
         // input = userId(Teacher), 과목(examSubject)
         // output = 과목(examSubject), 회차별 정보(회차(examNumber), 해당 회차 시험 평균 점수)
+        try {
+            List<StudentAnswerEntity> studentAnswerEntityList = this.studentAnswerRepository.findAllByExamSubject(requestInfo.getExamSubject());
+            HashMap<Integer, EachExamScore> examScoreHashMap = new HashMap<>();
+            for (StudentAnswerEntity studentAnswerEntity : studentAnswerEntityList) {
+                int examNumber = studentAnswerEntity.getExamNumber();
+                int score = studentAnswerEntity.getStudentScore();
+                if (examScoreHashMap.get(examNumber) == null) {
+                    examScoreHashMap.put(examNumber, new EachExamScore(examNumber, score));
+                } else {
+                    EachExamScore examScore = examScoreHashMap.get(examNumber);
+                    examScore.addScore(score);
+                }
+            }
+            List<TeacherDto.EachAverageScore> eachAverageScoreList = new ArrayList<>();
+            for (int i = 1; i <= examScoreHashMap.size(); i++) {
+                eachAverageScoreList.add(new TeacherDto.EachAverageScore(
+                        i,
+                        examScoreHashMap.get(i).getAverageScore()
+                ));
+            }
+            return new TeacherDto.GetAverageGraphRes(
+                    requestInfo.getExamSubject(),
+                    eachAverageScoreList
+            );
+        }catch (Exception e){
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
+    }
+    private class EachExamScore{
+        public int examNumber;
+        public int totalScore;
+        public int count;
 
+        public EachExamScore(int examNumber, int score){
+            this.examNumber = examNumber;
+            this.totalScore = score;
+            this.count = 1;
+        }
+        public void addScore(int score){
+            this.totalScore += score;
+            this.count++;
+        }
+        public float getAverageScore(){
+            return totalScore / (float)count;
+        }
     }
 }

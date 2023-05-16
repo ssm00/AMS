@@ -35,8 +35,12 @@ public class TeacherController {
         // 모든 시험 성적 평균 그래프
         // input = userId(Teacher), 과목(examSubject)
         // output = 과목(examSubject), 회차별 정보(회차(examNumber), 해당 회차 시험 평균 점수)
-        TeacherDto.GetAverageGraphRes averageGraphInfo = this.teacherService.getAverageGraph(requestInfo);
-        return new BaseResponse<>(null);
+        try {
+            TeacherDto.GetAverageGraphRes averageGraphInfo = this.teacherService.getAverageGraph(requestInfo);
+            return new BaseResponse<>(averageGraphInfo);
+        }catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
     }
 
     @ResponseBody
