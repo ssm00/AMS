@@ -1,6 +1,7 @@
 package com.ams.amsbackend.repository;
 
 import com.ams.amsbackend.domain.StudentAnswerEntity;
+import com.ams.amsbackend.domain.Subject;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import com.ams.amsbackend.domain.StudentEntity;
@@ -27,11 +28,11 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      * 메소드 이름 줄이기 가능... 나중에 고민ㄱ
      */
     @EntityGraph(attributePaths = {"studentEntity"})
-    List<StudentAnswerEntity> findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(Integer examNumber, String examSubject);
+    List<StudentAnswerEntity> findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(Integer examNumber, Subject examSubject);
 
     //Long타입 확인
-    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
-    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
+    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, Subject examSubject);
+    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, Subject examSubject);
 
     Long countByExamNumberAndExamSubject(Integer examNumber, String examSubject);
 
@@ -40,5 +41,5 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      * studentEntity의 정보  사용안하기 때문에 EntityGraph 적용 안함
      * 추후 studentEntity정보 접근시 fetch join 추가 고려
      */
-    List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(Integer examNumber, String examSubject);
+    List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(Integer examNumber, Subject examSubject);
 }
