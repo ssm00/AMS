@@ -19,7 +19,6 @@ public class BaseResponse<T> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T result;
 
-    // ��û�� ������ ���
     public BaseResponse(T result) {
         this.isSuccess = SUCCESS.isSuccess();
         this.message = SUCCESS.getMessage();
@@ -27,7 +26,6 @@ public class BaseResponse<T> {
         this.result = result;
     }
 
-    // ��û�� ������ ���
     public BaseResponse(BaseResponseStatus status) {
         this.isSuccess = status.isSuccess();
         this.message = status.getMessage();
