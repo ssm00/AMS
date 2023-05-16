@@ -40,7 +40,6 @@ public class TokenProvider {
                 Instant.now()
                         .plus(1, ChronoUnit.DAYS)
         );
-
         //Token 생성
         return Jwts.builder()
                 //header
