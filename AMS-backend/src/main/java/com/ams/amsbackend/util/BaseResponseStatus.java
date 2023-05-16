@@ -21,6 +21,19 @@ public enum BaseResponseStatus {
      */
     SOCIAL(false, 2101, "소셜로 로그인을 진행한 이메일 입니다."),
     NOT_SOCIAL(false, 2102, "소셜이 로그인으로 진행한 이메일입니다."),
+
+    /*
+     * 3000 : ranking
+     */
+    PARAMTOP5STUDENTNULL(false, 3001, "find Top5 Student : examNumber, examSubject 널입니다"),
+    JPATOP5STUDENTNULL(false, 3002, "find Top5 Student : JPA findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc 값이 empty입니다"),
+    STUDENTANSWERNULL(false, 3003, "find Top5 Student : studentScore, studentRank, studentName 널입니다"),
+    PARAMTOP5WRONGRATENULL(false, 3004, "find top 5 wrong rate : examNumber and examSubject 널입니다"),
+    JPATOP5WRONGRATENULL(false, 3005, "find top 5 wrong rate : JPA findAllByExamNumberAndExamSubject 혹은 findAllByExamNumberAndSubject 값이 널입니다"),
+    JPATOP5SCORE(false, 3006, "find top 5 score : JPA studentRepository.findByID 널입니다"),
+    ENTITYGRAPHTOP5SCORE(false, 3007, "find top 5 score : studentEntity -> studentAnswerEntity 그래프 탐색 값이 없습니다."),
+
+
     /*
      * 4000: [POST]
      * */
@@ -32,6 +45,7 @@ public enum BaseResponseStatus {
      * */
     PASSWORD_ENCRYPTION_ERROR(false, 5001, "비밀번호 암호화에 실패했습니다."),
     DATABASE_ERROR(false, 5002, "데이터베이스 연결에 실패하였습니다."),
+
     /*
      * 7000 : PATCH
      * */
