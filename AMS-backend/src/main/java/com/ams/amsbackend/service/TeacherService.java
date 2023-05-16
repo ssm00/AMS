@@ -27,9 +27,11 @@ public class TeacherService {
     public String markExams(TeacherDto.BasicGetExamInfo examInfo) throws BaseException {
         int todoCount = countToDoMark(examInfo);
         if(todoCount == 0) throw new BaseException(BaseResponseStatus.POST_USERS_NOT_FOUND_MARK);
+        ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(examInfo.getGrade(), examInfo.getExamNumber(), examInfo.getExamSubject());
+        if(examAnswerEntity == null) throw new BaseException(BaseResponseStatus.POST_USERS_NOT_FOUND_ANSWER);
         try{
             // 채점하기
-            ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(examInfo.getGrade(), examInfo.getExamNumber(), examInfo.getExamSubject());
+
             String[] examAnswers = examAnswerEntity.getExamAnswer().split(",");
             String[] examAllotment = examAnswerEntity.getAllotment().split(",");
             List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(examInfo.getGrade());
