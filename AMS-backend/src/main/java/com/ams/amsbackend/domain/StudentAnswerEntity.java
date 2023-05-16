@@ -27,7 +27,8 @@ public class StudentAnswerEntity {
 
     private String incorrectAnswer;
 
-    private String examSubject;
+    @Enumerated(EnumType.STRING)
+    private Subject examSubject;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
