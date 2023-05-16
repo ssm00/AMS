@@ -8,14 +8,17 @@ public enum BaseResponseStatus {
     /*
      * 2000: Log-in, Sign-up
      * */
-    DUPLICATE_NICKNAME(false, 2000, "닉네임이 중복되었습니다."),
+    DUPLICATE_LOGINID(false, 2000, "로그인아이디가 중복되었습니다."),
     DUPLICATE_EMAIL(false, 2001, "이메일이 중복되었습니다."),
     EMPTY_JWT(false, 2002, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2003, "유효하지 않은 JWT입니다."),
-    POST_USERS_EMPTY_NICKNAME(false, 2004, "아이디를 입력해주세요."),
+    POST_USERS_EMPTY_LOGINID(false, 2004, "아이디를 입력해주세요."),
     POST_USERS_EMPTY_PASSWORD(false, 2005, "비밀번호를 입력해주세요."),
     POST_USERS_INVALID_PASSWORD(false, 2006, "비밀번호가 틀렸습니다."),
     FAILED_TO_LOGIN(false, 2007, "없는 아이디이거나 비밀번호가 틀렸습니다."),
+    NO_USER_TYPE(false, 2008, "user의 타입이 공백이거나 null입니다. S or T"),
+    CREATE_TEACHER_DATA_NULL(false, 2009, "Teacher 유형 회원가입 입력되지 않은정보가 있습니다."),
+    CREATE_STUDENT_DATA_NULL(false, 2010, "Stdeunt 유형 회원가입 입력되지 않은정보가 있습니다."),
     /*
      * 2100: Social
      */
@@ -25,13 +28,13 @@ public enum BaseResponseStatus {
     /*
      * 3000 : ranking
      */
-    PARAMTOP5STUDENTNULL(false, 3001, "find Top5 Student : examNumber, examSubject 널입니다"),
-    JPATOP5STUDENTNULL(false, 3002, "find Top5 Student : JPA findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc 값이 empty입니다"),
-    STUDENTANSWERNULL(false, 3003, "find Top5 Student : studentScore, studentRank, studentName 널입니다"),
-    PARAMTOP5WRONGRATENULL(false, 3004, "find top 5 wrong rate : examNumber and examSubject 널입니다"),
-    JPATOP5WRONGRATENULL(false, 3005, "find top 5 wrong rate : JPA findAllByExamNumberAndExamSubject 혹은 findAllByExamNumberAndSubject 값이 널입니다"),
-    JPATOP5SCORE(false, 3006, "find top 5 score : JPA studentRepository.findByID 널입니다"),
-    ENTITYGRAPHTOP5SCORE(false, 3007, "find top 5 score : studentEntity -> studentAnswerEntity 그래프 탐색 값이 없습니다."),
+    PARAM_TOP5_STUDENT_NULL(false, 3001, "find Top5 Student : examNumber, examSubject 널입니다"),
+    JPA_TOP5_STUDENT_NULL(false, 3002, "find Top5 Student : JPA findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc 값이 empty입니다"),
+    STUDENT_ANSWER_NULL(false, 3003, "find Top5 Student : studentScore, studentRank, studentName 중 널이있습니다"),
+    PARAM_TOP5_WRONGRATE_NULL(false, 3004, "find top 5 wrong rate : examNumber and examSubject 널입니다"),
+    JPA_TOP5_WRONGRATE_NULL(false, 3005, "find top 5 wrong rate : JPA findAllByExamNumberAndExamSubject 혹은 findAllByExamNumberAndSubject 값이 널입니다"),
+    JPA_TOP5_SCORE(false, 3006, "find top 5 score : JPA studentRepository.findByID 널입니다"),
+    ENTITYGRAPH_TOP5_SCORE(false, 3007, "find top 5 score : studentEntity -> studentAnswerEntity 그래프 탐색 값이 없습니다."),
 
 
     /*
