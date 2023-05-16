@@ -1,6 +1,7 @@
 package com.ams.amsbackend.controller.dto;
 
 
+import com.ams.amsbackend.domain.Subject;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,5 +9,5 @@ import lombok.Getter;
 @Builder
 public class PostExamInfoReq {
     private Integer examNumber;
-    private String examSubject;
+    private Subject examSubject;
 }
