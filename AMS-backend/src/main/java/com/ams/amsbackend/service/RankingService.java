@@ -56,16 +56,13 @@ public class RankingService {
     }
 
     public List<EachWrongRateInfo> findTop5WrongRate(Integer examNumber, Subject examSubject) throws BaseException{
+        validateParameter(examNumber, examSubject);
         ArrayList<EachWrongRateInfo> top5WrongRateList = new ArrayList<>();
-        if (examNumber == null || examSubject == null) {
-            throw new BaseException(BaseResponseStatus.PARAM_TOP5_WRONGRATE_NULL);
-        }
+
         List<StudentAnswerEntity> studentAnswerList = studentAnswerRepository.findAllByExamNumberAndExamSubject(examNumber, examSubject);
         ExamAnswerEntity examAnswerEntity = examAnswerRepository.findAllByExamNumberAndSubject(examNumber, examSubject);
-        if (studentAnswerList.isEmpty() || examAnswerEntity == null) {
-            // 데이터를 찾지 못한 경우 RuntimeException 처리
-            throw new BaseException(BaseResponseStatus.JPA_TOP5_WRONGRATE_NULL);
-        }
+        validateData(studentAnswerList, examAnswerEntity);
+
         HashMap<String, Integer> wrongRateTable = makeWrongRateTable(studentAnswerList);
         List<Map.Entry<String, Integer>> descWrongRate = tableDescByValues(wrongRateTable);
         //limit는 size 유동적 결정 3개밖에없으면 3개만 return
@@ -113,6 +110,19 @@ public class RankingService {
             top5WrongRateList.add(wrongRateInfo);
         });
         return top5WrongRateList;
+    }
+
+    private static void validateData(List<StudentAnswerEntity> studentAnswerList, ExamAnswerEntity examAnswerEntity) throws BaseException {
+        if (studentAnswerList.isEmpty() || examAnswerEntity == null) {
+            // 데이터를 찾지 못한 경우 RuntimeException 처리
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_WRONGRATE_NULL);
+        }
+    }
+
+    private static void validateParameter(Integer examNumber, Subject examSubject) throws BaseException {
+        if (examNumber == null || examSubject == null) {
+            throw new BaseException(BaseResponseStatus.PARAM_TOP5_WRONGRATE_NULL);
+        }
     }
 
     public List<EachScoreInfo> findTop5Score(Long userId) throws BaseException{
