@@ -15,7 +15,7 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_LOGINID(false, 2004, "아이디를 입력해주세요."),
     POST_USERS_EMPTY_PASSWORD(false, 2005, "비밀번호를 입력해주세요."),
     POST_USERS_INVALID_PASSWORD(false, 2006, "비밀번호가 틀렸습니다."),
-    FAILED_TO_LOGIN(false, 2007, "없는 아이디이거나 비밀번호가 틀렸습니다."),
+    FAILED_TO_LOGIN(false, 2007, "아이디 혹은 비밀번호가 틀렸습니다."),
     NO_USER_TYPE(false, 2008, "user의 타입이 공백이거나 null입니다. S or T"),
     CREATE_TEACHER_DATA_NULL(false, 2009, "Teacher 유형 회원가입 입력되지 않은정보가 있습니다."),
     CREATE_STUDENT_DATA_NULL(false, 2010, "Stdeunt 유형 회원가입 입력되지 않은정보가 있습니다."),
