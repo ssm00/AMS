@@ -7,6 +7,8 @@ import com.ams.amsbackend.repository.*;
 import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class UserService {
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
     private final TeacherRepository teacherRepository;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 //    public UserDto.PostGradeCardInfoRes getGradeCardeInfo(Long userId, int examNumber, Subject examSubject) {
 //        // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber),
@@ -60,7 +63,7 @@ public class UserService {
         if (userRepository.existsByLoginId(logInId)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_LOGINID);
         }
-        StudentEntity studentEntity = new StudentEntity(logInId, userName, email, password, Role.ROLE_USER, schoolType, schoolName, grade, className);
+        StudentEntity studentEntity = new StudentEntity(logInId, userName, email, passwordEncoder.encode(password), Role.ROLE_USER, schoolType, schoolName, grade, className);
         return studentRepository.save(studentEntity);
     }
 
@@ -76,7 +79,7 @@ public class UserService {
         if (userRepository.existsByLoginId(logInId)) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_LOGINID);
         }
-        TeacherEntity teacherEntity = new TeacherEntity(logInId, userName, email, password, Role.ROLE_USER, subject, manageGrade, schoolType);
+        TeacherEntity teacherEntity = new TeacherEntity(logInId, userName, email, passwordEncoder.encode(password), Role.ROLE_USER, subject, manageGrade, schoolType);
         return teacherRepository.save(teacherEntity);
     }
 
@@ -87,12 +90,11 @@ public class UserService {
         if (password == null) {
             throw new BaseException(BaseResponseStatus.POST_USERS_EMPTY_PASSWORD);
         }
-        UserEntity userEntity = userRepository.findByLoginIdAndPassword(logInId, password);
-        if (userEntity == null) {
+        UserEntity userEntity = userRepository.findByLoginId(logInId);
+        if (userEntity == null || !passwordEncoder.matches(password, userEntity.getPassword())){
             throw new BaseException(BaseResponseStatus.FAILED_TO_LOGIN);
         }
         return userEntity;
     }
-
 
 }
