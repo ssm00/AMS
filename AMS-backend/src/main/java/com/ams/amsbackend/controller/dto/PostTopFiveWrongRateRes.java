@@ -1,5 +1,6 @@
 package com.ams.amsbackend.controller.dto;
 
+import com.ams.amsbackend.domain.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,6 @@ import java.util.List;
 @Builder
 public class PostTopFiveWrongRateRes {
     private Integer examNumber;
-    private String examSubject;
+    private Subject examSubject;
     private List<EachWrongRateInfo> wrongRateInfoList;
 }
