@@ -38,7 +38,7 @@ export function call(api, method, request) {
 }
 
 export function signin(userDTO) {
-    return call("/auth/signin", "POST", userDTO).then((response) => {
+    return call("/users/log-in", "POST", userDTO).then((response) => {
         if (response.token) {
             localStorage.setItem(ACCESS_TOKEN, response.token);
             window.location.href = "/";
@@ -52,5 +52,5 @@ export function signout() {
 }
 
 export function signup(userDTO) {
-    return call("/auth/signup", "POST", userDTO);
+    return call("/users/sign-up", "POST", userDTO);
 }
