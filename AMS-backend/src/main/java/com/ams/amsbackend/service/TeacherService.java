@@ -24,7 +24,8 @@ public class TeacherService {
     private final StudentAnswerRepository studentAnswerRepository;
     private final ExamAnswerRepository examAnswerRepository;
     private final StudentRepository studentRepository;
-    public String markExams(TeacherDto.BasicGetExamInfo examInfo) throws BaseException {
+    public String markExams(String logInId, TeacherDto.BasicGetExamInfo examInfo) throws BaseException {
+        // 예외처리: logInId가 teacher인지
         int todoCount = countToDoMark(examInfo);
         if(todoCount == 0) throw new BaseException(BaseResponseStatus.POST_USERS_NOT_FOUND_MARK);
         ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(examInfo.getGrade(), examInfo.getExamNumber(), examInfo.getExamSubject());
@@ -71,9 +72,10 @@ public class TeacherService {
 
     }
 
-    public TeacherDto.PostDistributionTableRes getDistributionTable(TeacherDto.BasicGetExamInfo examInfo) throws BaseException{
+    public TeacherDto.PostDistributionTableRes getDistributionTable(String logInId, TeacherDto.BasicGetExamInfo examInfo) throws BaseException{
         // input = userId(Teacher), 학년(grade), 회차(examNumber), 과목(examSubject)
         // output = 해당 학년(grade), 회차(examNumber), 과목(examSubject), 학생별 정보(학생 이름(name), 시험 점수(studentScore))
+        // 예외처리: logInId가 teacher인지
         try {
             List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(examInfo.getGrade());
             List<StudentAnswerEntity> studentAnswerEntityList = this.studentAnswerRepository.findAllByExamNumberAndExamSubjectAndStudentEntityIn(examInfo.getExamNumber(), examInfo.getExamSubject(), studentEntities);
@@ -99,9 +101,10 @@ public class TeacherService {
         }
     }
 
-    public TeacherDto.GetAverageGraphRes getAverageGraph(TeacherDto.GetAverageGraphReq requestInfo) throws BaseException{
+    public TeacherDto.GetAverageGraphRes getAverageGraph(String logInId, TeacherDto.GetAverageGraphReq requestInfo) throws BaseException{
         // input = userId(Teacher), 학년(grade), 과목(examSubject)
         // output = 학년(grade), 과목(examSubject), 회차별 정보(회차(examNumber), 해당 회차 시험 평균 점수)
+        // 예외처리: logInId가 Teacher인지
         try {
             List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(requestInfo.getGrade());
             List<StudentAnswerEntity> studentAnswerEntityList = this.studentAnswerRepository.findStudentAnswerEntitiesByStudentEntityInAndExamSubject(studentEntities, requestInfo.getExamSubject());
@@ -136,15 +139,22 @@ public class TeacherService {
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
-
-    public String inputAnswer(TeacherDto.PostInputAnswersReq inputAnswerInfo) throws BaseException{
-        ExamAnswerEntity examAnswer = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(inputAnswerInfo.getExamGrade(), inputAnswerInfo.getExamNumber(), inputAnswerInfo.getSubject());
-        if(examAnswer != null) throw new BaseException(BaseResponseStatus.POST_USERS_INPUT_ANSWER);
+    public TeacherDto.GetExistAnswerRes existAnswer(String logInId, TeacherDto.BasicGetExamInfo existAnswerInfo) throws BaseException{
+        try {
+            ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(existAnswerInfo.getGrade(), existAnswerInfo.getExamNumber(), existAnswerInfo.getExamSubject());
+            if (examAnswerEntity == null) return new TeacherDto.GetExistAnswerRes(false, "해당 정답이 존재하지 않습니다.");
+            else return new TeacherDto.GetExistAnswerRes(true, "해당 정답이 존재합니다.");
+        }catch (Exception e){
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
+    }
+    public String inputAnswer(String logInId, TeacherDto.PostInputAnswersReq inputAnswerInfo) throws BaseException{
+        // 예외처리: logInId가 teacher인지
         try {
             ExamAnswerEntity examAnswerEntity = ExamAnswerEntity.builder()
-                    .examGrade(inputAnswerInfo.getExamGrade())
+                    .examGrade(inputAnswerInfo.getGrade())
                     .examNumber(inputAnswerInfo.getExamNumber())
-                    .subject(inputAnswerInfo.getSubject())
+                    .subject(inputAnswerInfo.getExamSubject())
                     .numberOfQuestion(inputAnswerInfo.getNumberOfQuestion())
                     .allotment(inputAnswerInfo.getAllotment())
                     .examAnswer(inputAnswerInfo.getExamAnswer())
@@ -156,9 +166,10 @@ public class TeacherService {
         }
     }
 
-    public TeacherDto.getToDoMarkCountRes getToDoMarkCount(TeacherDto.BasicGetExamInfo examInfo) throws BaseException{
+    public TeacherDto.getToDoMarkCountRes getToDoMarkCount(String logInId, TeacherDto.BasicGetExamInfo examInfo) throws BaseException{
         // input = userId(Teacher), 학년(grade), 회차(examNumber), 과목(examSubject)
         // output = 학년(grade), 회차(examNumber), 과목(examSubject), 채점 해야할 학생 수(점수가 입력 안 되어있는 학생들 수)
+        // 예외처리: logInId가 teacher인지
         try {
             int todoCount = countToDoMark(examInfo);
             return new TeacherDto.getToDoMarkCountRes(

@@ -62,10 +62,17 @@ public class TeacherDto {
     }
     @Getter
     @AllArgsConstructor
+    @Builder
+    public static class GetExistAnswerRes {
+        private boolean existAnswer;
+        private String message;
+    }
+    @Getter
+    @AllArgsConstructor
     public static class PostInputAnswersReq {
-        private int examGrade;
+        private int grade;
         private int examNumber;
-        private Subject subject;
+        private Subject examSubject;
         private int numberOfQuestion;
         private String allotment;
         private String examAnswer;
