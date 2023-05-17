@@ -33,7 +33,6 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
 
 
     //Long타입 확인
-    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, Subject examSubject);
     StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, Subject examSubject);
 
     Long countByExamNumberAndExamSubject(Integer examNumber, String examSubject);
@@ -45,7 +44,7 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      */
     List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(Integer examNumber, Subject examSubject);
 
-    int countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
+    Long countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
     StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, Integer examNumber, Subject examSubject);
     List<StudentAnswerEntity> findAllByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
     List<StudentAnswerEntity> findStudentAnswerEntitiesByStudentEntity(StudentEntity studentEntity);
