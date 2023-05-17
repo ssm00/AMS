@@ -62,6 +62,7 @@ public class UserService {
         }
         TeacherEntity teacherEntity = new TeacherEntity(logInId, userName, email, passwordEncoder.encode(password), Role.ROLE_USER, subject, manageGrade, schoolType);
         return teacherRepository.save(teacherEntity);
+    }
 
     public UserDto.PostGradeCardInfoRes getGradeCardInfo(Long userId, UserDto.BasicGetExamInfo examInfo) throws BaseException{
         // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber),
