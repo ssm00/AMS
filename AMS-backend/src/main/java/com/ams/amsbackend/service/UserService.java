@@ -64,10 +64,10 @@ public class UserService {
         return teacherRepository.save(teacherEntity);
     }
 
-    public UserDto.PostGradeCardInfoRes getGradeCardInfo(Long userId, UserDto.BasicGetExamInfo examInfo) throws BaseException{
+    public UserDto.PostGradeCardInfoRes getGradeCardInfo(String logInId, UserDto.BasicGetExamInfo examInfo) throws BaseException{
         // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber),
         // 각 번호별 정보(정답(ExamAnswer.examAnswer, 학생이 적은 답(StudentAnswer.studentAnswer), 오답률)
-        Optional<StudentEntity> studentEntity = this.studentRepository.findById(userId);
+        Optional<StudentEntity> studentEntity = this.studentRepository.findByLoginId(logInId);
         StudentAnswerEntity studentAnswer = this.studentAnswerRepository.findByStudentEntityAndExamNumberAndExamSubject(studentEntity.get(), examInfo.getExamNumber(), examInfo.getExamSubject());
         if(studentAnswer == null) throw new BaseException(BaseResponseStatus.POST_USERS_NOT_FOUND_ANSWER);
         // 해당 학생의 해당 회차, 과목의 entity
@@ -77,7 +77,8 @@ public class UserService {
             // 같은 학년의 학생들
             List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(studentEntity.get().getGrade());
             // 전체 학생수
-            int totalStudent = this.studentAnswerRepository.countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(examInfo.getExamNumber(), examInfo.getExamSubject(), studentEntities);
+            Long totalStudentLong = this.studentAnswerRepository.countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(examInfo.getExamNumber(), examInfo.getExamSubject(), studentEntities);
+            int totalStudent = totalStudentLong.intValue();
             // 번호별 정답
             ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(studentEntity.get().getGrade(), examInfo.getExamNumber(), examInfo.getExamSubject());
             String[] examAnswers = examAnswerEntity.getExamAnswer().split(",");
@@ -132,16 +133,17 @@ public class UserService {
         return incorrectRate;
     }
 
-    public UserDto.GetGradeGraphRes getGradeGraphInfo(Long userId) throws BaseException{
+    public UserDto.GetGradeGraphRes getGradeGraphInfo(String logInId) throws BaseException{
         // output = 모든 회차별(회차, 과목, 해당 회차 점수, 해당 회차 등수(내 등수/전체 학생 수))
         try {
             List<UserDto.EachExamNumberInfo> eachExamNumberInfos = new ArrayList<>();
-            Optional<StudentEntity> studentEntity = this.studentRepository.findById(userId);
+            Optional<StudentEntity> studentEntity = this.studentRepository.findByLoginId(logInId);
             List<StudentAnswerEntity> studentAnswerEntityList = this.studentAnswerRepository.findStudentAnswerEntitiesByStudentEntity(studentEntity.get());
             List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(studentEntity.get().getGrade());
             for (StudentAnswerEntity studentAnswerEntity : studentAnswerEntityList) {
                 if(studentAnswerEntity.getStudentScore() == null) continue;
-                int totalStudents = this.studentAnswerRepository.countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(studentAnswerEntity.getExamNumber(), studentAnswerEntity.getExamSubject(), studentEntities);
+                Long totalStudentsLong = this.studentAnswerRepository.countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(studentAnswerEntity.getExamNumber(), studentAnswerEntity.getExamSubject(), studentEntities);
+                int totalStudents = totalStudentsLong.intValue();
                 eachExamNumberInfos.add(new UserDto.EachExamNumberInfo(
                         studentAnswerEntity.getExamNumber(),
                         studentAnswerEntity.getExamSubject(),
@@ -156,10 +158,10 @@ public class UserService {
         }
     }
 
-    public String inputStudentAnswers(Long userId, UserDto.PostInputStudentAnswersReq studentInput) throws BaseException{
+    public String inputStudentAnswers(String logInId, UserDto.PostInputStudentAnswersReq studentInput) throws BaseException{
         // input = userId(Student), 회차(examNumber), 과목(examSubject), 학생이 작성한 정답(studentAnswer),
         // output = 저장 성공 여부
-        Optional<StudentEntity> studentEntity = this.studentRepository.findById(userId);
+        Optional<StudentEntity> studentEntity = this.studentRepository.findByLoginId(logInId);
         StudentAnswerEntity studentAnswer = this.studentAnswerRepository.findByStudentEntityAndExamNumberAndExamSubject(studentEntity.get(), studentInput.getExamNumber(), studentInput.getExamSubject());
         if(studentAnswer != null) throw new BaseException(BaseResponseStatus.POST_USERS_INPUT_ANSWER);
         try {

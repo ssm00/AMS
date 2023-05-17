@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity,Long> {
 
-
     @EntityGraph(attributePaths = {"studentAnswerList"})
     Optional<StudentEntity> findById(Long userId);
 
