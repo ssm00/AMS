@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExamAnswerRepository extends JpaRepository<ExamAnswerEntity, Long>{
+
     ExamAnswerEntity findAllByExamNumberAndSubject(int examNumber, Subject subject);
+
+    ExamAnswerEntity findAllByExamGradeAndExamNumberAndSubject(int grade, int examNumber, Subject subject);
+
 }

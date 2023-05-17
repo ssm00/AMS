@@ -43,6 +43,10 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY(false, 4000, "공백 없이 입력해주세요."),
     POST_USERS_INVALID_EMAIL(false, 4001, "이메일 양식이 맞지 않습니다."),
     POST_USERS_INVALID_PWD(false, 4002, "비밀번호 양식이 맞지 않습니다."),
+    POST_USERS_INPUT_ANSWER(false, 4003, "이미 정답을 입력한 회차의 과목입니다."),
+    POST_USERS_NOT_FOUND_ANSWER(false, 4004, "정답을 입력하지 않은 회차의 과목입니다."),
+    POST_USERS_NOT_FOUND_MARK(false, 4005, "해당 회차, 과목에 대해 채점할 학생이 없습니다."),
+    POST_USERS_NOT_MARK(false, 4006, "해당 회차, 과목에 대해 아직 채점이 되지 않았습니다."),
     /*
      * 5000: database error
      * */
