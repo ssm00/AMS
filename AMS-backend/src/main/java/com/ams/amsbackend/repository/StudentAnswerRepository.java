@@ -1,6 +1,7 @@
 package com.ams.amsbackend.repository;
 
 import com.ams.amsbackend.domain.StudentAnswerEntity;
+import com.ams.amsbackend.domain.Subject;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import com.ams.amsbackend.domain.StudentEntity;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,9 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
     @EntityGraph(attributePaths = {"studentEntity"})
     List<StudentAnswerEntity> findTop5ByExamNumberOrderByStudentScoreDesc(Integer examNumber);
 
-    int countStudentAnswerEntitiesByExamNumberAndExamSubject(int examNumber, String examSubject);
-    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, String examSubject);
-
+    int countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
+    StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, Integer examNumber, Subject examSubject);
+    List<StudentAnswerEntity> findAllByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
+    List<StudentAnswerEntity> findStudentAnswerEntitiesByStudentEntity(StudentEntity studentEntity);
+    List<StudentAnswerEntity> findStudentAnswerEntitiesByStudentEntityInAndExamSubject(List<StudentEntity> studentEntities, Subject subject);
 }
