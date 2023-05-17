@@ -1,6 +1,11 @@
 package com.ams.amsbackend.service;
 
+import com.ams.amsbackend.controller.dto.PostSignUpRes;
 import com.ams.amsbackend.controller.dto.UserDto;
+
+import com.ams.amsbackend.domain.*;
+import com.ams.amsbackend.repository.*;
+
 import com.ams.amsbackend.domain.ExamAnswerEntity;
 import com.ams.amsbackend.domain.StudentAnswerEntity;
 import com.ams.amsbackend.domain.StudentEntity;
@@ -8,9 +13,12 @@ import com.ams.amsbackend.domain.Subject;
 import com.ams.amsbackend.repository.ExamAnswerRepository;
 import com.ams.amsbackend.repository.StudentAnswerRepository;
 import com.ams.amsbackend.repository.StudentRepository;
+
 import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +32,36 @@ public class UserService {
     private final StudentAnswerRepository studentAnswerRepository;
     private final ExamAnswerRepository examAnswerRepository;
     private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
+    private final TeacherRepository teacherRepository;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+    public StudentEntity signUpStudent(String userName, String email, String logInId, String password, String schoolName, SchoolType schoolType, Integer grade, String className) throws BaseException {
+        if (userName == null || email == null || logInId == null || password == null || schoolType == null || schoolName == null || grade == null || className == null) {
+            throw new BaseException(BaseResponseStatus.CREATE_STUDENT_DATA_NULL);
+        }
+        if (userRepository.existsByLoginId(logInId)) {
+            throw new BaseException(BaseResponseStatus.DUPLICATE_LOGINID);
+        }
+        StudentEntity studentEntity = new StudentEntity(logInId, userName, email, passwordEncoder.encode(password), Role.ROLE_USER, schoolType, schoolName, grade, className);
+        return studentRepository.save(studentEntity);
+    }
+
+    /**
+     * 선생님 회원가입
+     * 가입시 userRepository에서 id확인
+     * save는 teacherRepository
+     */
+    public TeacherEntity signUpTeacher(String userName, String email, String logInId, String password, SchoolType schoolType, Integer manageGrade, Subject subject) throws BaseException {
+        if (userName == null || email == null || logInId == null || password == null || schoolType == null || manageGrade == null || subject == null) {
+            throw new BaseException(BaseResponseStatus.CREATE_TEACHER_DATA_NULL);
+        }
+        if (userRepository.existsByLoginId(logInId)) {
+            throw new BaseException(BaseResponseStatus.DUPLICATE_LOGINID);
+        }
+        TeacherEntity teacherEntity = new TeacherEntity(logInId, userName, email, passwordEncoder.encode(password), Role.ROLE_USER, subject, manageGrade, schoolType);
+        return teacherRepository.save(teacherEntity);
 
     public UserDto.PostGradeCardInfoRes getGradeCardInfo(Long userId, UserDto.BasicGetExamInfo examInfo) throws BaseException{
         // output = 전체 응시 학생 수, 등수(studentRank), 만점(100), 점수(studentScore), 회차(examNumber),
@@ -135,5 +173,21 @@ public class UserService {
         }catch (Exception e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
+
     }
+
+    public UserEntity logIn(String logInId, String password) throws BaseException {
+        if (logInId == null) {
+            throw new BaseException(BaseResponseStatus.POST_USERS_EMPTY_LOGINID);
+        }
+        if (password == null) {
+            throw new BaseException(BaseResponseStatus.POST_USERS_EMPTY_PASSWORD);
+        }
+        UserEntity userEntity = userRepository.findByLoginId(logInId);
+        if (userEntity == null || !passwordEncoder.matches(password, userEntity.getPassword())){
+            throw new BaseException(BaseResponseStatus.FAILED_TO_LOGIN);
+        }
+        return userEntity;
+    }
+
 }

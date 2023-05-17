@@ -1,5 +1,6 @@
 package com.ams.amsbackend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +10,9 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("TEACHER")
+@DiscriminatorValue("T")
 @Entity
 public class TeacherEntity extends UserEntity{
 

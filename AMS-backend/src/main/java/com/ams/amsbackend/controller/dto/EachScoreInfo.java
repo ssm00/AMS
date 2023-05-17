@@ -1,13 +1,14 @@
 package com.ams.amsbackend.controller.dto;
 
-
-import com.ams.amsbackend.domain.Subject;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class PostExamInfoReq {
+@AllArgsConstructor
+public class EachScoreInfo {
     private Integer examNumber;
-    private Subject examSubject;
+    private Integer score;
+    private Integer rank;
 }

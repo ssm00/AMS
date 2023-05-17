@@ -3,6 +3,7 @@ package com.ams.amsbackend.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("STUDENT")
+@DiscriminatorValue("S")
 @Entity
 public class StudentEntity extends UserEntity {
 
@@ -24,6 +25,7 @@ public class StudentEntity extends UserEntity {
 
     private String className;
 
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "studentEntity")
     private List<StudentAnswerEntity> studentAnswerList = new ArrayList<>();
 
@@ -43,6 +45,13 @@ public class StudentEntity extends UserEntity {
     public void addStudentAnswer(StudentAnswerEntity studentAnswerEntity) {
         studentAnswerList.add(studentAnswerEntity);
         studentAnswerEntity.setStudentEntity(this);
+    }
+
+    /**
+     * 추가
+     */
+    public void sortStudentAnswer() {
+
     }
 
 }

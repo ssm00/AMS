@@ -1,11 +1,15 @@
 package com.ams.amsbackend.controller;
 
-import com.ams.amsbackend.controller.dto.UserDto;
+import com.ams.amsbackend.controller.dto.*;
+import com.ams.amsbackend.domain.SchoolType;
+import com.ams.amsbackend.domain.Subject;
+import com.ams.amsbackend.domain.UserEntity;
+import com.ams.amsbackend.security.TokenProvider;
 import com.ams.amsbackend.service.UserService;
 import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponse;
+import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,17 +19,60 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final TokenProvider tokenProvider;
 
-
-    @PostMapping("sing-up")
-    public BaseResponse<?> singUp() {
-        return null;
+    /**
+     * 회원가입
+     *  타입은 S(student),T(teacher)
+     */
+    @PostMapping("sign-up")
+    public BaseResponse<PostSignUpRes> singUp(@RequestBody PostSignUpReq signUpDto) {
+        if (signUpDto.getType() == null) {
+            return new BaseResponse(BaseResponseStatus.NO_USER_TYPE);
+        }
+        String userName = signUpDto.getName();
+        String email = signUpDto.getEmail();
+        String logInId = signUpDto.getLogInId();
+        String password = signUpDto.getPassword();
+        SchoolType schoolType = signUpDto.getSchoolType();
+        try {
+            if (signUpDto.getType().equals("S")) {
+                String schoolName = signUpDto.getSchoolName();
+                String className = signUpDto.getClassName();
+                Integer grade = signUpDto.getGrade();
+                userService.signUpStudent(userName, email, logInId, password, schoolName, schoolType, grade, className);
+            } else if (signUpDto.getType().equals("T")) {
+                Integer manageGrade = signUpDto.getManageGrade();
+                Subject manageSubject = signUpDto.getManageSubject();
+                userService.signUpTeacher(userName, email, logInId, password, schoolType, manageGrade, manageSubject);
+            }
+        } catch (BaseException e) {
+            return new BaseResponse(e.getStatus());
+        }
+        PostSignUpRes response = new PostSignUpRes(userName, logInId, signUpDto.getType());
+        return new BaseResponse(response);
     }
 
     @PostMapping("log-in")
-    public BaseResponse<?> logIn() {
-        return null;
+    public BaseResponse<PostLogInRes> logIn(@RequestBody PostLogInReq logInDto) {
+        String logInId = logInDto.getLogInId();
+        String password = logInDto.getPassword();
+        UserEntity userEntity = null;
+        try {
+            userEntity = userService.logIn(logInId, password);
+        } catch (BaseException e) {
+            return new BaseResponse(e.getStatus());
+        }
+        final String token = tokenProvider.create(userEntity);
+        PostLogInRes postLogInRes = PostLogInRes.builder()
+                .token(token)
+                .userName(userEntity.getName())
+                .email(userEntity.getEmail())
+                .logInId(userEntity.getLoginId())
+                .build();
+        return new BaseResponse(postLogInRes);
     }
+
 
     @ResponseBody
     @PostMapping("grade-card")
@@ -40,6 +87,7 @@ public class UserController {
             return new BaseResponse<>(e.getStatus());
         }
     }
+
 
     @GetMapping("grade-graph")
     public BaseResponse<UserDto.GetGradeGraphRes> getGradeGraphInfo(@RequestParam Long userId) {

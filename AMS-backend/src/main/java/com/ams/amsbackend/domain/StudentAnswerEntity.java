@@ -29,6 +29,7 @@ public class StudentAnswerEntity {
     private String correctAnswer;
     @ColumnDefault("null")
     private String incorrectAnswer;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Subject examSubject;
