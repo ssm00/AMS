@@ -14,6 +14,7 @@ import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -125,13 +126,15 @@ public class RankingService {
         }
     }
 
-    public List<EachScoreInfo> findTop5Score(Long userId) throws BaseException{
-        if (userId == null) {
+    public List<EachScoreInfo> findTop5Score(String logInId) throws BaseException{
+        if (logInId == null) {
             throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
         }
+        System.out.println("loginID: "+ logInId);
         ArrayList<EachScoreInfo> top5ScoreList = new ArrayList<>();
-        Optional<StudentEntity> studentEntity = studentRepository.findById(userId);
-        if (!studentEntity.isPresent()) {
+        Optional<StudentEntity> studentEntity = studentRepository.findByLoginId(logInId);
+        log.info("st entity",studentEntity);
+        if (studentEntity.isEmpty()) {
             // 데이터를 찾지 못한 경우 RuntimeException 처리
             throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
         }

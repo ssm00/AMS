@@ -7,6 +7,7 @@ import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -67,10 +68,10 @@ public class RankingController {
      * 2회차 90점 2등....
      */
     @GetMapping("user-score")
-    public BaseResponse<GetTopFiveScoreRes> user_score(Long userId) {
+    public BaseResponse<GetTopFiveScoreRes> user_score(@AuthenticationPrincipal String logInId) {
         List<EachScoreInfo> top5ScoreList = null;
         try {
-            top5ScoreList = rankingService.findTop5Score(userId);
+            top5ScoreList = rankingService.findTop5Score(logInId);
         } catch (BaseException e) {
             return new BaseResponse(e.getStatus());
         }
