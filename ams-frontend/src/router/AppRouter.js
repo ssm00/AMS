@@ -7,15 +7,6 @@ import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
 import SignUp from "./SignUp";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright "}
-            fsoftengineer, {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 class AppRouter extends React.Component {
     render() {
@@ -30,9 +21,6 @@ class AppRouter extends React.Component {
                             <Route path="/signup" element={<SignUp />} />
                         </Routes>
                     </div>
-                    <Box mt={5}>
-                        <Copyright />
-                    </Box>
                 </Router>
             </div>
         );
