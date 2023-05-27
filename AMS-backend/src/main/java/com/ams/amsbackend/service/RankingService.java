@@ -14,10 +14,14 @@ import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -29,23 +33,20 @@ public class RankingService {
     private final StudentAnswerRepository studentAnswerRepository;
     private final ExamAnswerRepository examAnswerRepository;
 
-    public List<EachStudentInfo> findTop5Student(Integer examNumber, Subject examSubject) throws BaseException {
-        if (examNumber == null || examSubject == null) {
-            throw new BaseException(BaseResponseStatus.PARAM_TOP5_STUDENT_NULL);
-        }
+    public List<EachStudentInfo> findTop5Student(Integer examNumber, Subject examSubject, Integer grade) throws BaseException {
+        validateParams(examNumber, examSubject, grade);
         List<EachStudentInfo> top5studentList = new ArrayList<>();
-        List<StudentAnswerEntity> top5ScoreStudentAnswer = studentAnswerRepository.findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(examNumber,examSubject);
-        if (top5ScoreStudentAnswer.isEmpty()) {
-            // 데이터를 찾지 못한 경우 예외 처리
-            throw new BaseException(BaseResponseStatus.JPA_TOP5_STUDENT_NULL);
-        }
-        for (StudentAnswerEntity studentAnswerEntity : top5ScoreStudentAnswer) {
+        List<StudentAnswerEntity> scoreDescStudentAnswerList = studentAnswerRepository.findAllScoreDesc(examNumber, examSubject);
+        emptyCheck(scoreDescStudentAnswerList);
+        for (StudentAnswerEntity studentAnswerEntity : scoreDescStudentAnswerList) {
+            Integer studentGrade = studentAnswerEntity.getStudentEntity().getGrade();
+            if (studentGrade != grade) {
+                continue;
+            }
             Integer studentScore = studentAnswerEntity.getStudentScore();
             Integer studentRank = studentAnswerEntity.getStudentRank();
             String studentName = studentAnswerEntity.getStudentEntity().getName();
-            if (studentScore == null || studentRank == null || studentName == null) {
-                throw new BaseException(BaseResponseStatus.STUDENT_ANSWER_NULL);
-            }
+            validateTopScoreData(studentScore, studentRank, studentName);
             EachStudentInfo eachStudentInfo = EachStudentInfo.builder()
                     .studentScore(studentScore)
                     .studentRank(studentRank)
@@ -53,18 +54,52 @@ public class RankingService {
                     .build();
             top5studentList.add(eachStudentInfo);
         }
+        notEnough5(top5studentList);
         return top5studentList;
     }
 
-    public List<EachWrongRateInfo> findTop5WrongRate(Integer examNumber, Subject examSubject) throws BaseException{
-        validateParameter(examNumber, examSubject);
+    private static void notEnough5(List<EachStudentInfo> top5studentList) {
+        while (top5studentList.size() < 5) {
+            EachStudentInfo eachStudentInfo = EachStudentInfo.builder()
+                    .studentScore(-1)
+                    .studentRank(-1)
+                    .name("없음")
+                    .build();
+            top5studentList.add(eachStudentInfo);
+        }
+    }
+    private void emptyCheck(List<StudentAnswerEntity> scoreDescStudentAnswerList) throws BaseException {
+        if (scoreDescStudentAnswerList.isEmpty()) {
+            // 데이터를 찾지 못한 경우 예외 처리
+            throw new BaseException(BaseResponseStatus.JPA_TOP5_STUDENT_NULL);
+        }
+    }
+
+    private void validateTopScoreData(Integer studentScore, Integer studentRank, String studentName) throws BaseException {
+        if (studentScore == null || studentRank == null || studentName == null) {
+            throw new BaseException(BaseResponseStatus.STUDENT_ANSWER_NULL);
+        }
+    }
+
+    private void validateParams(Integer examNumber, Subject examSubject, Integer grade) throws BaseException {
+        if (examNumber == null || examSubject == null || grade == null) {
+            throw new BaseException(BaseResponseStatus.PARAM_TOP5_STUDENT_NULL);
+        }
+    }
+
+    public List<EachWrongRateInfo> findTop5WrongRate(Integer examNumber, Subject examSubject, Integer grade) throws BaseException{
+        validateParameter(examNumber, examSubject,grade);
         ArrayList<EachWrongRateInfo> top5WrongRateList = new ArrayList<>();
 
-        List<StudentAnswerEntity> studentAnswerList = studentAnswerRepository.findAllByExamNumberAndExamSubject(examNumber, examSubject);
-        ExamAnswerEntity examAnswerEntity = examAnswerRepository.findAllByExamNumberAndSubject(examNumber, examSubject);
+        List<StudentAnswerEntity> beforeGradeFilter = studentAnswerRepository.findAllByExamNumberAndExamSubject(examNumber, examSubject);
+        //학년 filter 적용
+        List<StudentAnswerEntity> studentAnswerList = beforeGradeFilter.stream().filter(studentAnswerEntity -> studentAnswerEntity.getStudentEntity().getGrade() == grade).collect(Collectors.toList());
+        ExamAnswerEntity examAnswerEntity = examAnswerRepository.findAllByExamNumberAndSubjectAndExamGrade(examNumber, examSubject,grade);
+
         validateData(studentAnswerList, examAnswerEntity);
 
         HashMap<String, Integer> wrongRateTable = makeWrongRateTable(studentAnswerList);
+        //오답 해쉬 테이블 내림차순 정리
         List<Map.Entry<String, Integer>> descWrongRate = tableDescByValues(wrongRateTable);
         //limit는 size 유동적 결정 3개밖에없으면 3개만 return
         Stream<Map.Entry<String, Integer>> top5WrongProblems = descWrongRate.stream().limit(5);
@@ -98,6 +133,7 @@ public class RankingService {
                     log.error("1,2,3,4,5가 아닌값 있음 : "+studentSelectNumber);
                 }
             }
+            //builder
             EachWrongRateInfo wrongRateInfo = EachWrongRateInfo.builder()
                     .problemNumber(problemNumber)
                     .correctAnswer(correctAnswer)
@@ -120,8 +156,8 @@ public class RankingService {
         }
     }
 
-    private static void validateParameter(Integer examNumber, Subject examSubject) throws BaseException {
-        if (examNumber == null || examSubject == null) {
+    private static void validateParameter(Integer examNumber, Subject examSubject, Integer grade) throws BaseException {
+        if (examNumber == null || examSubject == null || grade==null) {
             throw new BaseException(BaseResponseStatus.PARAM_TOP5_WRONGRATE_NULL);
         }
     }
@@ -182,9 +218,10 @@ public class RankingService {
     private HashMap<String,Integer> makeWrongRateTable(List<StudentAnswerEntity> studentAnswerList) {
         HashMap<String, Integer> wrongTable = new HashMap<>();
         for (StudentAnswerEntity studentAnswerEntity : studentAnswerList) {
+            //학생 틀린 문제 정보 가져오기
             String incorrectAnswerLine = studentAnswerEntity.getIncorrectAnswer();
-            //regex 확인필요
             String[] incorrectArray = incorrectAnswerLine.trim().split(",");
+            //해쉬 테이블 채우기
             for (String problemNum : incorrectArray) {
                 wrongTable.put(problemNum, wrongTable.getOrDefault(problemNum, 0) + 1);
             }
