@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ExamAnswerRepository extends JpaRepository<ExamAnswerEntity, Long>{
 
-    ExamAnswerEntity findAllByExamNumberAndSubject(int examNumber, Subject subject);
+    ExamAnswerEntity findAllByExamNumberAndSubjectAndExamGrade(int examNumber, Subject subject, int grade);
 
     ExamAnswerEntity findAllByExamGradeAndExamNumberAndSubject(int grade, int examNumber, Subject subject);
 
