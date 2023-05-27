@@ -2,6 +2,8 @@ package com.ams.amsbackend.repository;
 
 import com.ams.amsbackend.domain.StudentAnswerEntity;
 import com.ams.amsbackend.domain.Subject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import com.ams.amsbackend.domain.StudentEntity;
@@ -11,7 +13,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +28,14 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      * 여기서는 ManyToOne 이라 괜찮음
      * @Query("select sae from StudentAnswerEntity sae join fetch sae.studentEntity se where sae.examNumber = :examNumber order by sae.studentScore Desc join "), pagable 받기
      * 메소드 이름 줄이기 가능... 나중에 고민ㄱ
+        @EntityGraph(attributePaths = "studentEntity")
+        @Query("select sae from StudentAnswerEntity sae where sae.examNumber = :examNumber and sae.examSubject = :examSubject")
+        Page<StudentAnswerEntity> findTopScoreStudentList(@Param("examNumber")Integer examNumber, @Param("examSubject") Subject examSubject, @Param("grade") Integer grade, Pageable pageable);
      */
-    @EntityGraph(attributePaths = {"studentEntity"})
-    List<StudentAnswerEntity> findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc(Integer examNumber, Subject examSubject);
+    @EntityGraph(attributePaths = "studentEntity")
+    @Query("select sae from StudentAnswerEntity sae where sae.examNumber = :examNumber and sae.examSubject = :examSubject order by sae.studentScore DESC")
+    List<StudentAnswerEntity> findAllScoreDesc(@Param("examNumber") Integer examNumber,@Param("examSubject") Subject examSubject);
 
-
-    //Long타입 확인
     StudentAnswerEntity findByStudentEntityAndExamNumberAndExamSubject(StudentEntity studentEntity, int examNumber, Subject examSubject);
 
     Long countByExamNumberAndExamSubject(Integer examNumber, String examSubject);
@@ -41,7 +44,9 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswerEnti
      * 오답률계산을 위한 엔티티 불러오기
      * studentEntity의 정보  사용안하기 때문에 EntityGraph 적용 안함
      * 추후 studentEntity정보 접근시 fetch join 추가 고려
+     * ssm00 0522 수정 grade 정보 확인해야함. EntityGraph추가
      */
+    @EntityGraph(attributePaths = "studentEntity")
     List<StudentAnswerEntity> findAllByExamNumberAndExamSubject(Integer examNumber, Subject examSubject);
 
     Long countStudentAnswerEntitiesByExamNumberAndExamSubjectAndStudentEntityIn(Integer examNumber, Subject examSubject, List<StudentEntity> studentEntities);
