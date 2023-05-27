@@ -10,4 +10,5 @@ import lombok.Getter;
 public class PostExamInfoReq {
     private Integer examNumber;
     private Subject examSubject;
+    private Integer grade;
 }
