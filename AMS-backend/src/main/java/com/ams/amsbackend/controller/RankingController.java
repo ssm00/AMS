@@ -27,9 +27,10 @@ public class RankingController {
     public BaseResponse<PostTopFiveStudentInfoRes> top5Score(@RequestBody PostExamInfoReq rankingRequestDto) {
         Integer examNumber = rankingRequestDto.getExamNumber();
         Subject examSubject = rankingRequestDto.getExamSubject();
+        Integer grade = rankingRequestDto.getGrade();
         List<EachStudentInfo> top5Student = null;
         try {
-            top5Student = rankingService.findTop5Student(examNumber, examSubject);
+            top5Student = rankingService.findTop5Student(examNumber, examSubject, grade);
         } catch (BaseException e) {
             return new BaseResponse(e.getStatus());
         }
@@ -48,9 +49,10 @@ public class RankingController {
     public BaseResponse<PostTopFiveWrongRateRes> wrong_rate(@RequestBody PostExamInfoReq rankingRequestDto) {
         Integer examNumber = rankingRequestDto.getExamNumber();
         Subject examSubject = rankingRequestDto.getExamSubject();
+        Integer grade = rankingRequestDto.getGrade();
         List<EachWrongRateInfo> top5WrongRate = null;
         try {
-            top5WrongRate = rankingService.findTop5WrongRate(examNumber, examSubject);
+            top5WrongRate = rankingService.findTop5WrongRate(examNumber, examSubject, grade);
         } catch (BaseException e) {
             return new BaseResponse(e.getStatus());
         }
