@@ -28,11 +28,11 @@ public enum BaseResponseStatus {
     /*
      * 3000 : ranking
      */
-    PARAM_TOP5_STUDENT_NULL(false, 3001, "find Top5 Student : examNumber, examSubject 널입니다"),
+    PARAM_TOP5_STUDENT_NULL(false, 3001, "find Top5 Student : examNumber, examSubject, grade 널값이 있습니다"),
     JPA_TOP5_STUDENT_NULL(false, 3002, "find Top5 Student : JPA findTop5ByExamNumberAndExamSubjectOrderByStudentScoreDesc 값이 empty입니다"),
     STUDENT_ANSWER_NULL(false, 3003, "find Top5 Student : studentScore, studentRank, studentName 중 널이있습니다"),
-    PARAM_TOP5_WRONGRATE_NULL(false, 3004, "find top 5 wrong rate : examNumber and examSubject 널입니다"),
-    JPA_TOP5_WRONGRATE_NULL(false, 3005, "find top 5 wrong rate : JPA findAllByExamNumberAndExamSubject 혹은 findAllByExamNumberAndSubject 값이 널입니다"),
+    PARAM_TOP5_WRONGRATE_NULL(false, 3004, "find top 5 wrong rate : examNumber or examSubject or grade 널입니다"),
+    JPA_TOP5_WRONGRATE_NULL(false, 3005, "find top 5 wrong rate : JPA StudentAnswerList 혹은 studentAnswer 값이 널입니다 올바른 입력인지 확인하십시오"),
     JPA_TOP5_SCORE(false, 3006, "find top 5 score : JPA studentRepository.findByID 널입니다"),
     ENTITYGRAPH_TOP5_SCORE(false, 3007, "find top 5 score : studentEntity -> studentAnswerEntity 그래프 탐색 값이 없습니다."),
 
