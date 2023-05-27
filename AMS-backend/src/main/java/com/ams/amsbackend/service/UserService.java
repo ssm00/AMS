@@ -172,6 +172,8 @@ public class UserService {
                     .studentEntity(studentEntity.get())
                     .build();
             this.studentAnswerRepository.save(studentAnswerEntity);
+            //객체에도 추가.
+            studentEntity.get().addStudentAnswer(studentAnswerEntity);
             return "정답이 입력되었습니다.";
         }catch (Exception e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
