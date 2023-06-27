@@ -3,11 +3,7 @@ import Chart from "chart.js";
 import {call} from "../../service/ApiService";
 
 export default function CardLineChart() {
-  const [data, setData] = useState([]);
   React.useEffect(() => {
-    call("/todo", "GET", null).then((response) => {
-      setData(response.data);
-    });
     var config = {
       type: "line",
       data: {
