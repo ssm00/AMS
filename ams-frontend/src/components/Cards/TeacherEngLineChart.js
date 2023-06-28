@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import Chart from "chart.js";
 import {call} from "../../service/ApiService";
 
-export default function CardLineChart() {
+export  default function TeacherEngLineChart() {
   const [data, setData] = useState([]);
   React.useEffect(() => {
-    call("/todo", "GET", null).then((response) => {
+    call("/teachers/average-graph", "POST", null).then((response) => {
       setData(response.data);
     });
     var config = {
