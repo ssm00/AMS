@@ -61,12 +61,12 @@ export default function SignUp() {
                               className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                               htmlFor="grid-password"
                             >
-                              이름
+                              아이디
                             </label>
                             <input
-                              type="email"
+                              type="text"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                              placeholder="Name"
+                              placeholder="아이디"
                             />
                           </div>
 
@@ -80,7 +80,7 @@ export default function SignUp() {
                             <input
                               type="email"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                              placeholder="Email"
+                              placeholder="이메일"
                             />
                           </div>
 
@@ -89,12 +89,12 @@ export default function SignUp() {
                               className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                               htmlFor="grid-password"
                             >
-                              로그인 아이디
+                              이름
                             </label>
                             <input
-                              type="password"
+                              type="text"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                              placeholder="Password"
+                              placeholder="이름"
                             />
                           </div>
                           <div className="relative w-full mb-3">
