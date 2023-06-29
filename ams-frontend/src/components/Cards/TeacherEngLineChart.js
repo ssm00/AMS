@@ -5,9 +5,10 @@ import {call} from "../../service/ApiService";
 export  default function TeacherEngLineChart() {
   const [data, setData] = useState([]);
   React.useEffect(() => {
-    call("/teachers/average-graph", "POST", null).then((response) => {
+    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
       setData(response.data);
     });
+    console.log(data)
     var config = {
       type: "line",
       data: {

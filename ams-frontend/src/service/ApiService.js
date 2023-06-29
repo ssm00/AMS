@@ -7,7 +7,7 @@ export function call(api, method, request) {
         "Content-type": "application/json",
     });
     //token 설정
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
     if (accessToken && accessToken !== null) {
         headers.append("Authorization", "Bearer " + accessToken);
     }
@@ -42,14 +42,14 @@ export function call(api, method, request) {
 export function signin(userDTO) {
     return call("/users/log-in", "POST", userDTO).then((response) => {
         if (response.token) {
-            localStorage.setItem(ACCESS_TOKEN, response.token);
+            sessionStorage.setItem(ACCESS_TOKEN, response.token);
             window.location.href = "/";
         }
     });
 }
 
 export function signout() {
-    localStorage.setItem(ACCESS_TOKEN, null);
+    sessionStorage.setItem(ACCESS_TOKEN, null);
     window.location.href = "/login";
 }
 
