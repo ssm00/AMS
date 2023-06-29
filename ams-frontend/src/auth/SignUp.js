@@ -1,8 +1,21 @@
 import React from "react";
 import Navbar from "../components/Navbars/AuthNavbar";
 import FooterSmall from "../components/Footers/FooterSmall";
-
+import {signup} from "../service/ApiService";
 export default function SignUp() {
+  const [logInId, setLogInId] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [schoolType, setSchoolType] = React.useState("HIGH");
+  const [className, setClassName] = React.useState("AP1");
+  const [schoolName, setSchoolName] = React.useState("대원고");
+  const [grade, setGrade] = React.useState("1");
+
+  const signUpSubmit = (event) => {
+    event.preventDefault();
+    signup({ logInId: logInId, email: email, name: name, password: password, schoolType: schoolType, className: className, type:"S", schoolName: schoolName,grade: Number(grade) });
+  }
   return (
     <>
       <Navbar transparent />
@@ -55,7 +68,7 @@ export default function SignUp() {
                         <div className="text-blueGray-400 text-center mb-3 font-bold">
                           <small>Or sign up with credentials</small>
                         </div>
-                        <form>
+                        <form onSubmit={signUpSubmit}>
                           <div className="relative w-full mb-3">
                             <label
                               className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -67,6 +80,8 @@ export default function SignUp() {
                               type="text"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                               placeholder="아이디"
+                              value={logInId}
+                              onChange={(e) => setLogInId(e.target.value)}
                             />
                           </div>
 
@@ -81,6 +96,8 @@ export default function SignUp() {
                               type="email"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                               placeholder="이메일"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
                             />
                           </div>
 
@@ -95,6 +112,8 @@ export default function SignUp() {
                               type="text"
                               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                               placeholder="이름"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
                             />
                           </div>
                           <div className="relative w-full mb-3">
@@ -107,8 +126,26 @@ export default function SignUp() {
                             <input
                                 type="password"
                                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                placeholder="Password"
+                                placeholder="비밀번호"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
+                          </div>
+                          <div className="relative w-full mb-3">
+                            <label
+                                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                htmlFor="grid-password"
+                            >
+                              학교 유형
+                            </label>
+                            <select
+                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                placeholder="학교 유형"
+                                onChange={event => setSchoolType(event.target.value)}
+                                >
+                                <option key="HIGH" value="HIGH" >고등학생</option>
+                                <option key="MIDDLE" value="MIDDLE" >중학생</option>
+                            </select>
                           </div>
                           <div className="relative w-full mb-3">
                             <label
@@ -117,11 +154,16 @@ export default function SignUp() {
                             >
                               학교
                             </label>
-                            <input
-                                type="password"
+                            <select
                                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                placeholder="Password"
-                            />
+                                placeholder="학교"
+                                onChange={event => setSchoolName(event.target.value)}
+                            >
+                              <option key="1" value="대원고등학교" >대원고</option>
+                              <option key="2" value="대원여자고" >대원여자고</option>
+                              <option key="3" value="건대부고" >건대부고</option>
+                              <option key="4" value="동대부여고" >동대부여고</option>
+                            </select>
                           </div>
                           <div className="relative w-full mb-3">
                             <label
@@ -130,51 +172,38 @@ export default function SignUp() {
                             >
                               반선택
                             </label>
-                            <input
-                                type="password"
+                            <select
                                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                placeholder="Password"
-                            />
+                                placeholder="반선택"
+                                onChange={event => setClassName(event.target.value)}
+                            >
+                              <option key="AP1" value="AP1" >AP1</option>
+                              <option key="AP2" value="AP2" >AP2</option>
+                            </select>
                           </div>
                           <div className="relative w-full mb-3">
                             <label
                                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                 htmlFor="grid-password"
                             >
-                              Password
+                              학년
                             </label>
-                            <input
-                                type="password"
+                            <select
                                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                placeholder="Password"
-                            />
+                                placeholder="학년"
+                                onChange={event => setGrade(event.target.value)}
+                            >
+                              <option key="1" value="1" >1</option>
+                              <option key="2" value="2" >2</option>
+                              <option key="3" value="3" >3</option>
+                            </select>
                           </div>
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="customCheckLogin"
-                                type="checkbox"
-                                className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                              />
-                              <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                                I agree with the{" "}
-                                <a
-                                  href="#pablo"
-                                  className="text-lightBlue-500"
-                                  onClick={(e) => e.preventDefault()}
-                                >
-                                  Privacy Policy
-                                </a>
-                              </span>
-                            </label>
-                          </div>
-
                           <div className="text-center mt-6">
                             <button
                               className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                              type="button"
+                              type="submit"
                             >
-                              Create Account
+                              확인
                             </button>
                           </div>
                         </form>
