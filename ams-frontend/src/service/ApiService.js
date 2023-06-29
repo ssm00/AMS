@@ -39,10 +39,10 @@ export function call(api, method, request) {
         });
 }
 
-export function signin(userDTO) {
+export function logIn(userDTO) {
     return call("/users/log-in", "POST", userDTO).then((response) => {
-        if (response.token) {
-            sessionStorage.setItem(ACCESS_TOKEN, response.token);
+        if (response.isSuccess) {
+            sessionStorage.setItem(ACCESS_TOKEN, response.result.token);
             window.location.href = "/";
         }
     });
