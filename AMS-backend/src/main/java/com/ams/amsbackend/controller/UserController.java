@@ -70,6 +70,7 @@ public class UserController {
                 .userName(userEntity.getName())
                 .email(userEntity.getEmail())
                 .logInId(userEntity.getLoginId())
+                .userType(userEntity.getDiscriminatorValue())
                 .build();
         return new BaseResponse(postLogInRes);
     }
@@ -88,7 +89,6 @@ public class UserController {
             return new BaseResponse<>(e.getStatus());
         }
     }
-
 
     @GetMapping("grade-graph")
     public BaseResponse<UserDto.GetGradeGraphRes> getGradeGraphInfo(@AuthenticationPrincipal String logInId) {

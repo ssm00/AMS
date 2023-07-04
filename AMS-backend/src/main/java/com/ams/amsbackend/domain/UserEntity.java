@@ -1,6 +1,5 @@
 package com.ams.amsbackend.domain;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -39,5 +38,10 @@ public class UserEntity {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    @Transient
+    public String getDiscriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
 }
