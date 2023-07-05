@@ -44,7 +44,11 @@ export function logIn(userDTO) {
         //학생이면 학생페이지로, 선생이면 선생페이지로 이동 추가해야함
         if (response.isSuccess) {
             sessionStorage.setItem(ACCESS_TOKEN, response.result.token);
-            window.location.href = "/";
+            if (response.result.userType === "T") {
+                window.location.href = "/teacher";
+            }else if(response.result.userType === "S") {
+                window.location.href = "/student";
+            }
         }else {
             alert(response.message);
         }
@@ -61,6 +65,8 @@ export function signup(userDTO) {
         console.log(response);
         if (response.isSuccess) {
             window.location.href = "/login";
+        } else {
+            alert(response.message);
         }
     });
 }
