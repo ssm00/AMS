@@ -2,7 +2,7 @@ import React from "react";
 
 // components
 
-import CardStats from "components/Cards/CardStats.js";
+import CardStats from "../Cards/CardStats.js";
 
 //맨위에 4갠
 export default function HeaderStats() {
