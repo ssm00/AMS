@@ -11,7 +11,7 @@ export  default function TeacherEngLineChart() {
       ],
       datasets: [
         {
-          label: "평균1",
+          label: "평균",
           backgroundColor: "#4c51bf",
           borderColor: "#4c51bf",
           data: [],
