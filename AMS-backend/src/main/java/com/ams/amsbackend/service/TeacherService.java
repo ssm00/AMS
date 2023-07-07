@@ -12,10 +12,7 @@ import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -95,6 +92,45 @@ public class TeacherService {
                     examInfo.getExamSubject(),
                     takeStudentCount,
                     eachStudentScoreList
+            );
+        }catch (Exception e){
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
+    }
+
+    public TeacherDto.PostDistributionCountTableRes getDistributionCountTable(String logInId, TeacherDto.BasicGetExamInfo examInfo) throws BaseException{
+        // input = userId(Teacher), 학년(grade), 회차(examNumber), 과목(examSubject)
+        // output = 해당 학년(grade), 회차(examNumber), 과목(examSubject),  시험 점수(studentScore), 해당점수의 명수)
+        // 예외처리: logInId가 teacher인지
+        try {
+            List<StudentEntity> studentEntities = this.studentRepository.findAllByGrade(examInfo.getGrade());
+            List<StudentAnswerEntity> studentAnswerEntityList = this.studentAnswerRepository.findAllByExamNumberAndExamSubjectAndStudentEntityIn(examInfo.getExamNumber(), examInfo.getExamSubject(), studentEntities);
+            HashMap<Integer, Integer> scoreDistributionMap = new HashMap<>();
+            int takeStudentCount = 0;
+            for (StudentAnswerEntity studentAnswerEntity : studentAnswerEntityList) {
+                if(studentAnswerEntity.getStudentScore() == null) continue;
+                scoreDistributionMap.put(studentAnswerEntity.getStudentScore(), scoreDistributionMap.getOrDefault(studentAnswerEntity.getStudentScore(), 0) + 1);
+                takeStudentCount++;
+            }
+            //내림차순정리
+            ArrayList<Map.Entry<Integer, Integer>> sortedMap = new ArrayList<>(scoreDistributionMap.entrySet());
+            sortedMap.sort(Map.Entry.comparingByKey(Comparator.reverseOrder()));
+            ArrayList<TeacherDto.EachStudentScoreCount> eachStudentScoreCounts = new ArrayList<>();
+            sortedMap.stream().forEach((scoreInfo) -> {
+                Integer score = scoreInfo.getKey();
+                Integer count = scoreInfo.getValue();
+                TeacherDto.EachStudentScoreCount eachStudentScoreCount = TeacherDto.EachStudentScoreCount.builder()
+                        .score(score)
+                        .count(count)
+                        .build();
+                eachStudentScoreCounts.add(eachStudentScoreCount);
+            });
+            return new TeacherDto.PostDistributionCountTableRes(
+                    examInfo.getGrade(),
+                    examInfo.getExamNumber(),
+                    examInfo.getExamSubject(),
+                    takeStudentCount,
+                    eachStudentScoreCounts
             );
         }catch (Exception e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
