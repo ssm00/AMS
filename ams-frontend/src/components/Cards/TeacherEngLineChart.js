@@ -7,6 +7,7 @@ export  default function TeacherEngLineChart() {
   var config = {
     type: "line",
     data: {
+      //x축
       labels: [
       ],
       datasets: [
