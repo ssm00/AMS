@@ -86,6 +86,7 @@ public class TeacherService {
                 ));
                 takeStudentCount++;
             }
+            eachStudentScoreList.sort(Comparator.comparing(TeacherDto.EachStudentScore::getStudentScore));
             return new TeacherDto.PostDistributionTableRes(
                     examInfo.getGrade(),
                     examInfo.getExamNumber(),
@@ -114,7 +115,7 @@ public class TeacherService {
             }
             //내림차순정리
             ArrayList<Map.Entry<Integer, Integer>> sortedMap = new ArrayList<>(scoreDistributionMap.entrySet());
-            sortedMap.sort(Map.Entry.comparingByKey(Comparator.reverseOrder()));
+            sortedMap.sort(Map.Entry.comparingByKey(Comparator.naturalOrder()));
             ArrayList<TeacherDto.EachStudentScoreCount> eachStudentScoreCounts = new ArrayList<>();
             sortedMap.stream().forEach((scoreInfo) -> {
                 Integer score = scoreInfo.getKey();
