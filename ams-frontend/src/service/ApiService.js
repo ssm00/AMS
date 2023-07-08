@@ -57,7 +57,7 @@ export function logIn(userDTO) {
 
 export function signout() {
     sessionStorage.setItem(ACCESS_TOKEN, null);
-    window.location.href = "/users/log-in";
+    window.location.href = "/login";
 }
 
 export function signup(userDTO) {
