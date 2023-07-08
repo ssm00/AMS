@@ -58,7 +58,7 @@ public class RankingService {
         return top5studentList;
     }
 
-    private static void notEnough5(List<EachStudentInfo> top5studentList) {
+    private void notEnough5(List<EachStudentInfo> top5studentList) {
         while (top5studentList.size() < 5) {
             EachStudentInfo eachStudentInfo = EachStudentInfo.builder()
                     .studentScore(-1)

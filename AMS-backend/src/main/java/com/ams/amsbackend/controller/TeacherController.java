@@ -6,7 +6,6 @@ import com.ams.amsbackend.util.BaseException;
 import com.ams.amsbackend.util.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +23,20 @@ public class TeacherController {
         // output = 해당 학년(grade), 회차(examNumber), 과목(examSubject), 학생별 정보(학생 이름(name), 시험 점수(studentScore))
         try {
             TeacherDto.PostDistributionTableRes distributionTableRes = this.teacherService.getDistributionTable(logInId, examInfo);
+            return new BaseResponse<>(distributionTableRes);
+        }catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("distributionCount-table")
+    public BaseResponse<TeacherDto.PostDistributionCountTableRes> getDistributionCountTable(@AuthenticationPrincipal String logInId, @RequestBody TeacherDto.BasicGetExamInfo examInfo){
+        // 해당 시험 성적 분포표
+        // input = userId(Teacher), 학년(grade), 회차(examNumber), 과목(examSubject)
+        // output = 해당 학년(grade), 회차(examNumber), 과목(examSubject), 학생별 정보(학생 이름(name), 시험 점수(studentScore))
+        try {
+            TeacherDto.PostDistributionCountTableRes distributionTableRes = this.teacherService.getDistributionCountTable(logInId, examInfo);
             return new BaseResponse<>(distributionTableRes);
         }catch (BaseException e){
             return new BaseResponse<>(e.getStatus());

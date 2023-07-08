@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbars/AuthNavbar";
 import FooterSmall from "../components/Footers/FooterSmall";
 import {logIn} from "../service/ApiService";
+const ACCESS_TOKEN = "ACCESS_TOKEN";
 export default function Login() {
   const [logInId, setLogInId] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  if(sessionStorage.getItem(ACCESS_TOKEN) !== null){
+    //마이페이지 이동추가
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     logIn({ logInId: logInId, password: password });
@@ -64,7 +67,7 @@ export default function Login() {
                           <small>Or sign in with credentials</small>
                         </div>
                         {/*submit*/}
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} method="post">
                           <div className="relative w-full mb-3">
                             <label
                               className="block uppercase text-blueGray-600 text-xs font-bold mb-2"

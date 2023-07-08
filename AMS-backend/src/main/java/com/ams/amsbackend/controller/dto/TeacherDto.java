@@ -39,6 +39,25 @@ public class TeacherDto {
 
     @Getter
     @AllArgsConstructor
+    @Builder
+    public static class PostDistributionCountTableRes {
+        private int grade;
+        private int examNumber;
+        private Subject examSubject;
+        private int takeStudentCount;
+        List<EachStudentScoreCount> eachStudentScoreCountList;
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class EachStudentScoreCount {
+        private int score;
+        private int count;
+    }
+
+
+    @Getter
+    @AllArgsConstructor
     @NoArgsConstructor
     public static class GetAverageGraphReq {
         private int grade;

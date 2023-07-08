@@ -107,7 +107,7 @@ export default function CardBarChart() {
               <h6 className="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
                 Performance
               </h6>
-              <h2 className="text-blueGray-700 text-xl font-semibold">
+              <h2 className="text-blueGray-400 text-xl font-semibold">
                 Total orders
               </h2>
             </div>

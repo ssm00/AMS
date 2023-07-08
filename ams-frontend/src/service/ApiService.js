@@ -41,9 +41,16 @@ export function call(api, method, request) {
 
 export function logIn(userDTO) {
     return call("/users/log-in", "POST", userDTO).then((response) => {
+        //학생이면 학생페이지로, 선생이면 선생페이지로 이동 추가해야함
         if (response.isSuccess) {
             sessionStorage.setItem(ACCESS_TOKEN, response.result.token);
-            window.location.href = "/";
+            if (response.result.userType === "T") {
+                window.location.href = "/teacher";
+            }else if(response.result.userType === "S") {
+                window.location.href = "/student";
+            }
+        }else {
+            alert(response.message);
         }
     });
 }
@@ -54,5 +61,12 @@ export function signout() {
 }
 
 export function signup(userDTO) {
-    return call("/users/sign-up", "POST", userDTO);
+    return call("/users/sign-up", "POST", userDTO).then((response) => {
+        console.log(response);
+        if (response.isSuccess) {
+            window.location.href = "/login";
+        } else {
+            alert(response.message);
+        }
+    });
 }

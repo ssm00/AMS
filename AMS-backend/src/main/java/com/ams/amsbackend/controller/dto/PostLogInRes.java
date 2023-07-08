@@ -12,4 +12,5 @@ public class PostLogInRes {
     private String userName;
     private String logInId;
     private String email;
+    private String userType;
 }

@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 
@@ -22,11 +26,11 @@ public class WebSecurityConfig {
         http.cors()
                 .and()
                 .csrf()
-                    .disable()
+                .disable()
                 .httpBasic()
-                    .disable()
+                .disable()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 /**
@@ -34,9 +38,18 @@ public class WebSecurityConfig {
                  responseBody에 error 메시지를 포함하려면 "/error" 추가
                  https://github.com/spring-projects/spring-boot/issues/28953
                  */
-                .antMatchers("oath2/**","/users/sign-up","/users/log-in","/error").permitAll()
+                .antMatchers("/oath2/**", "/users/sign-up", "/users/log-in", "/error").permitAll()
+                .antMatchers("/teacher/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+//                .and()
+//                    .csrf()
+//                    .ignoringAntMatchers("/users/sign-up")
+//                    .ignoringAntMatchers("/users/log-in")
+                .and()
+                    .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/");
 //                .and()
 //                .oauth2Login()
 //                    .redirectionEndpoint()
@@ -51,4 +64,5 @@ public class WebSecurityConfig {
         http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
         return http.build();
     }
+
 }

@@ -1,6 +1,5 @@
 package com.ams.amsbackend.service;
 
-import com.ams.amsbackend.controller.dto.PostSignUpRes;
 import com.ams.amsbackend.controller.dto.UserDto;
 
 import com.ams.amsbackend.domain.*;
