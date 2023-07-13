@@ -4,7 +4,7 @@ import TeacherEngMain from "./teacher/TeacherEngMain";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import TeacherEngAnswerMain from "./teacher/views/TeacherEngAnswerMain";
-import StudentEngAnswer from "./teacher/StudentEngAnswer";
+import StudentEngAnswer from "./student/views/StudentEngAnswer";
 
 import EnglishMain from "./student/views/english";
 

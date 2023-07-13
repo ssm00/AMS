@@ -3,9 +3,9 @@ import React from "react";
 // components
 
 
-import StudentEngAnswerForm from "../components/Cards/StudentEngAnswerForm";
-import TeacherEngSidebar from "./component/Sidebar/TeacherEngSidebar";
-import TeacherHeaderStats from "./component/Header/TeacherHeaderStats";
+import StudentEngAnswerForm from "../component/AnswerInput/StudentEngAnswerForm";
+import TeacherEngSidebar from "../../teacher/component/Sidebar/TeacherEngSidebar";
+import TeacherHeaderStats from "../../teacher/component/Header/TeacherHeaderStats";
 
 export default function StudentEngAnswer() {
     return (

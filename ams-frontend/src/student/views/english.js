@@ -2,7 +2,7 @@ import React from "react";
 
 // components
 import StudentSidebar from "../component/Sidebar/StudentSidebar.js";
-import StudentHeaderStats from "../../components/Headers/StudentHeaderStats.js";
+import StudentHeaderStats from "../component/Header/StudentHeaderStats.js";
 import CardGradeRanking from "../component/Cards/CardGradeRanking.js";
 import CardWrongRateRanking from "../component/Cards/CardWrongRateRanking.js";
 import CardStudentGrade from "../component/Cards/CardStudentGrade.js";
