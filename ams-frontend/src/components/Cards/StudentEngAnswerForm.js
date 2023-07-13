@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import TeacherAnswerTr from "./TeacherAnswerTr";
+import TeacherAnswerTr from "../../teacher/component/AnswerInput/TeacherAnswerTr";
 import {call} from "../../service/ApiService";
 import StudentAnswerTr from "./StudentAnswerTr";
 // components
@@ -27,7 +27,7 @@ export default function StudentEngAnswerForm({ color , examNumber }){
       call("/users/answers", "POST", {
           "examNumber": examNumber,
           "examSubject": "ENGLISH",
-          "examAnswer": answer,
+          "studentAnswer": answer,
       }).then((response) => {
           alert(response.result);
       }).catch((error) => {
