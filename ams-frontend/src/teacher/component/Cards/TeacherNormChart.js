@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Chart from "chart.js";
-import {call} from "../../service/ApiService";
+import {call} from "../../../service/ApiService";
 
 export default function TeacherNormChart({examNumber}) {
   const [data, setData] = useState([]);

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {call} from "../../service/ApiService";
+import {call} from "../../../service/ApiService";
 
 // components
 

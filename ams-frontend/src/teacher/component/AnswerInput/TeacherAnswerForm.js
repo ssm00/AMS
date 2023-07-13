@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import TeacherAnswerTr from "./TeacherAnswerTr";
-import {call} from "../../service/ApiService";
+import {call} from "../../../service/ApiService";
 // components
 
 export default function TeacherAnswerForm({ color , examNumber }){
