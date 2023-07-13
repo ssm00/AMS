@@ -19,13 +19,13 @@ export default function EnglishMain() {
         <div className="flex flex-raw mt-4">
           <div className="w-full xl:w-6/12 px-4">
             <CardGradeRanking
-              examNumber={2}
+              examNumber={1}
               examSubject={"ENGLISH"}
             />
           </div>
           <div className="w-full xl:w-6/12 px-4">
             <CardWrongRateRanking 
-              examNumber={2}
+              examNumber={1}
               examSubject={"ENGLISH"}
             />
           </div>
@@ -33,7 +33,7 @@ export default function EnglishMain() {
         <div className="flex flex-wrap mt-4">
           <div className="w-full xl:w-12/12 mb-12 xl:mb-0 px-4">
             <CardStudentGrade 
-              examNumber={2}
+              examNumber={1}
               examSubject={"ENGLISH"}
             />
           </div>

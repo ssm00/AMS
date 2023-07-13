@@ -24,6 +24,7 @@ class AppRouter extends React.Component {
                             <Route path="/" element={<Navigate replace to="/login"/>} />
 
                             {/*teacher*/}
+                            <Route path="/teacher" element={<Navigate replace to="/teacher/english/main"/>} />
                             <Route path="/teacher/english/main" element={<TeacherEngMain />} />
                             <Route path="/teacher/english/answer" element={<TeacherEngAnswerMain />} />
 

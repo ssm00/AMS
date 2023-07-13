@@ -4,45 +4,17 @@ import {call} from "../../../service/ApiService.js";
 
 export default function CardGradeGraph({examSubject}) {
   const [data, setData] = useState([]);
-  const [numberData, setNumberData] = useState([]);
-  const [scoreData, setScoreData] = useState([]);
-  const [rankData, setRankData] = useState([]);
-  const [totalData, setTotalData] = useState([]);
-  React.useEffect(() => {
-    call("/users/grade-graph", "GET", null).then((response) => {
-      setData(response.result.eachExamNumberInfos);
-      for(let i=0; i < response.result.eachExamNumberInfos.length; i++){
-        if(response.result.eachExamNumberInfos[i].subject === examSubject){
-          console.log(response.result.eachExamNumberInfos[i].examNumber);
-          setNumberData((numberData) => {
-            numberData.push(response.result.eachExamNumberInfos[i].examNumber + "회차");
-            return numberData;
-          });
-          setScoreData((scoreData) => {
-            scoreData.push(response.result.eachExamNumberInfos[i].studentScore);
-            return scoreData;
-          });
-          setRankData((rankData) => {
-            rankData.push(response.result.eachExamNumberInfos[i].studentRank);
-            return rankData;
-          });
-          setTotalData((totalData) => {
-            totalData.push(response.result.eachExamNumberInfos[i].totalStudents);
-            return totalData;
-          });
-        }
-      }
-    });
+
     var config = {
       type: "line",
       data: {
-        labels: numberData,
+        labels: [],
         datasets: [
           {
             label: 'Score',
             backgroundColor: "#FFF",
             borderColor: "#FFF",
-            data: scoreData,
+            data: [],
             fill: false,
           },
           {
@@ -50,14 +22,14 @@ export default function CardGradeGraph({examSubject}) {
             fill: false,
             backgroundColor: "#334155",
             borderColor: "#334155",
-            data: rankData,
+            data: [],
           },
           {
             label: 'Total',
             fill: false,
             backgroundColor: "#334155",
             borderColor: "#334155",
-            data: totalData,
+            data: [],
           },
         ],
       },
@@ -133,8 +105,20 @@ export default function CardGradeGraph({examSubject}) {
         },
       },
     };
-      var ctx = document.getElementById("line-chart").getContext("2d");
-      window.myLine = new Chart(ctx, config);
+    React.useEffect(() => {
+      call("/users/grade-graph", "GET", null).then((response) => {
+        setData(response.result.eachExamNumberInfos);
+        for(let i=0; i < response.result.eachExamNumberInfos.length; i++){
+          config.data.labels.push(response.result.eachExamNumberInfos[i].examNumber + "회차");
+          config.data.datasets[0].data.push(response.result.eachExamNumberInfos[i].studentScore);
+          config.data.datasets[1].data.push(response.result.eachExamNumberInfos[i].studentRank);
+          config.data.datasets[2].data.push(response.result.eachExamNumberInfos[i].totalStudents);
+
+        }
+        var ctx = document.getElementById("line-chart").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+      });
+
   }, []);
   return (
     <>

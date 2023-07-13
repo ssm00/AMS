@@ -91,7 +91,7 @@ export default function CardStudentGrade({examNumber, examSubject}) {
                       </td>
                       <td className="px-6 align-middle border border-solid text-xs whitespace-nowrap p-4">
                         <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                        {isFetched ? problemInfo.wrongRate + "%" : ""}
+                        {isFetched ? (problemInfo.wrongRate * 100) + "%" : ""}
                       </td>
                     </tr>
                   );
@@ -135,7 +135,7 @@ export default function CardStudentGrade({examNumber, examSubject}) {
                         </td>
                         <td className="px-6 align-middle border border-solid text-xs whitespace-nowrap p-4">
                           <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                          {isFetched ? problemInfo.wrongRate + "%" : ""}
+                          {isFetched ? (problemInfo.wrongRate * 100) + "%" : ""}
                         </td>
                       </tr>
                     );
@@ -182,7 +182,7 @@ export default function CardStudentGrade({examNumber, examSubject}) {
                         </td>
                         <td className="px-6 align-middle border border-solid text-xs whitespace-nowrap p-4">
                           <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                          {isFetched ? problemInfo.wrongRate + "%" : ""}
+                          {isFetched ? (problemInfo.wrongRate * 100) + "%" : ""}
                         </td>
                       </tr>
                     );
