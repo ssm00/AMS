@@ -7,7 +7,7 @@ import Sidebar from "./component/Sidebar/StudentSidebar.js";
 
 // views
 import EnglishMain from "../student/views/english";
-import EnglishAnswer from "../student/views/englishAnswer";
+import EnglishAnswer from "../student/views/StudentEngAnswer";
 
 export default function StudentMain() {
   return (
