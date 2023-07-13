@@ -7,14 +7,14 @@ export default function TeacherNormChart({examNumber}) {
   let normConfig = {
     type: "line",
     data: {
-      labels: [
+      labels: [10,20,30,40,50,60,70,80,90,100
       ],
       datasets: [
         {
           label: "명",
           backgroundColor: "#ed64a6",
           borderColor: "#ed64a6",
-          data: [],
+          data: [0,0,0,0,0,0,0,0,0,0],
           fill: false,
           barThickness: 8,
           tension: 1,
@@ -109,6 +109,7 @@ export default function TeacherNormChart({examNumber}) {
         normConfig.data.labels.push(response.result.eachStudentScoreCountList[i].score);
         normConfig.data.datasets[0].data.push(response.result.eachStudentScoreCountList[i].count);
       }
+      console.log(normConfig.data)
       var ctx = document.getElementById("eng-norm-chart").getContext("2d");
       window.myLine = new Chart(ctx, normConfig);
     });
