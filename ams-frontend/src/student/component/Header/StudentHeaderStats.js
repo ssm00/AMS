@@ -3,8 +3,8 @@ import React from "react";
 // components
 
 
-import StudentCardStat from "../Cards/StudentCardStat.js";
-import StudentCardSelect from "../Cards/StudentCardSelect.js"
+import StudentCardStat from "./StudentCardStat.js";
+import StudentCardSelect from "./StudentCardSelect.js"
 
 //맨위에 4개
 export default function StudentHeaderStats() {

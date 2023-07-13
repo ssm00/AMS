@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import TeacherAnswerTr from "../../teacher/component/AnswerInput/TeacherAnswerTr";
-import {call} from "../../service/ApiService";
+import TeacherAnswerTr from "../../../teacher/component/AnswerInput/TeacherAnswerTr";
+import {call} from "../../../service/ApiService";
 import StudentAnswerTr from "./StudentAnswerTr";
 // components
 
