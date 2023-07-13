@@ -1,10 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 import TeacherMain from "./teacher/TeacherMain";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import TeacherEngAnswer from "./teacher/TeacherEngAnswer";
 import StudentEngAnswer from "./teacher/StudentEngAnswer";
+
+import EnglishMain from "./student/views/english";
+
 class AppRouter extends React.Component {
     render() {
         return (
@@ -20,6 +23,9 @@ class AppRouter extends React.Component {
                             <Route path="/sign-up" element={<SignUp />} />
                             <Route path="/teacher/answer" element={<TeacherEngAnswer />} />
                             <Route path="/student/answer" element={<StudentEngAnswer />} />
+                            <Route path="/student/english/main" element={<EnglishMain />} />
+                            <Route path="/student" element={<Navigate replace to="/student/english/main"/>} />
+                            <Route path="/" element={<Navigate replace to="/login"/>} />   
                         </Routes>
                     </div>
                 </Router>
