@@ -2,12 +2,14 @@ package com.ams.amsbackend.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@DynamicUpdate
 public class ExamAnswerEntity {
 
     @Id
@@ -33,6 +35,16 @@ public class ExamAnswerEntity {
         this.subject = subject;
         this.numberOfQuestion = numberOfQuestion;
         this.allotment = allotment;
+        this.examAnswer = examAnswer;
+    }
+
+    public void setNumberOfQuestion(Integer numberOfQuestion){
+        this.numberOfQuestion = numberOfQuestion;
+    }
+    public void setAllotment(String allotment){
+        this.allotment = allotment;
+    }
+    public void setExamAnswer(String examAnswer){
         this.examAnswer = examAnswer;
     }
 }

@@ -1,30 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function StudentCardStats({
+export default function StudentCardStat({
   statTitle,
-  statIconName,
-  statIconColor,
 }) {
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
         <div className="flex-auto p-4">
-          <div className="flex flex-wrap items-center">
+          <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1 text-center">
               <span className="font-semibold text-xl text-blueGray-700">
                 {statTitle}
               </span>
-            </div>
-            <div className="relative w-auto pl-4 flex-initial">
-              <div
-                className={
-                  "text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full " +
-                  statIconColor
-                }
-              >
-                <i className={statIconName}></i>
-              </div>
             </div>
           </div>
         </div>
@@ -33,7 +21,7 @@ export default function StudentCardStats({
   );
 }
 
-StudentCardStats.defaultProps = {
+StudentCardStat.defaultProps = {
   statSubtitle: "Traffic",
   statTitle: "350,897",
   statArrow: "up",
@@ -44,7 +32,7 @@ StudentCardStats.defaultProps = {
   statIconColor: "bg-red-500",
 };
 
-StudentCardStats.propTypes = {
+StudentCardStat.propTypes = {
   statSubtitle: PropTypes.string,
   statTitle: PropTypes.string,
   statArrow: PropTypes.oneOf(["up", "down"]),

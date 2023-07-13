@@ -2,10 +2,12 @@ import React from "react";
 
 // components
 
-import StudentCardStats from "../Cards/StudentCardStats";
+
+import StudentCardStat from "../Cards/StudentCardStat.js";
+import StudentCardSelect from "../Cards/StudentCardSelect.js"
 
 //맨위에 4개
-export default function HeaderStats() {
+export default function StudentHeaderStats() {
   return (
     <>
       {/* Header */}
@@ -14,25 +16,18 @@ export default function HeaderStats() {
           <div>
             {/* Card stats */}
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
-                <StudentCardStats
+              <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
+                <StudentCardStat
                   statTitle="English"
-                  statIconName="fas fa-chart-bar"
-                  statIconColor="bg-red-500"
+                />
+              </div>
+              <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
+                <StudentCardSelect
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
-                <StudentCardStats
-                  statTitle="1회차"
-                  statIconName="fas fa-chart-bar"
-                  statIconColor="bg-red-500"
-                />
-              </div>
-              <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
-                <StudentCardStats
+                <StudentCardStat
                   statTitle="홍길동님"
-                  statIconName="fas fa-chart-bar"
-                  statIconColor="bg-red-500"
                 />
               </div>
             </div>
