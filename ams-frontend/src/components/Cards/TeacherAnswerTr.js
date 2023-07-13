@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AnswerTr(props) {
+export default function TeacherAnswerTr(props) {
     return (
         <tr>
             <td className="border-t-0 px-6 align-middle border border-solid text-xs whitespace-nowrap p-4 text-left flex items-center">
@@ -61,12 +61,12 @@ export default function AnswerTr(props) {
             </td>
             <td>
                 <input
-                    type="text"
+                    type="number"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="점수 입력"
-                    // id= "loginId"
-                    // value={logInId}
-                    // onChange={(event) => setLogInId(event.target.value)}
+                    name = {"allotment"+props.number}
+                    id= {"allotmentValue"+props.number}
+                    defaultValue={"allotmentValue"+props.number}
                 />
             </td>
         </tr>

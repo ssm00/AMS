@@ -2,17 +2,16 @@ import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import TeacherAnswerTr from "./TeacherAnswerTr";
 import {call} from "../../service/ApiService";
+import StudentAnswerTr from "./StudentAnswerTr";
 // components
 
-export default function TeacherAnswerForm({ color , examNumber }){
+export default function StudentEngAnswerForm({ color , examNumber }){
   const tr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
   let answer = "";
-  let allotment = "";
-  function SubmitAnswer(e) {
+  function SubmitStudentEngAnswer(e) {
       e.preventDefault();
       for(let i=1; i<=tr.length; i++){
           let radioElement = document.getElementsByName("radio" + i);
-          let allotmentElement = document.getElementsByName("allotment" + i);
           for (let j = 0; j < radioElement.length; j++) {
               if (radioElement[j].checked === true) {
                   answer += radioElement[j].value + ",";
@@ -24,22 +23,10 @@ export default function TeacherAnswerForm({ color , examNumber }){
                   return;
               }
           }
-          if(!allotmentElement[0].value){
-              alert(i + "번 배점이 입력되지 않았습니다.");
-              allotment = "";
-              return;
-          }else{
-              allotment += allotmentElement[0].value + ",";
-          }
       };
-      console.log(answer);
-      console.log(allotment);
-      call("/teachers/answers", "POST", {
-          "grade": 3,
+      call("/users/answers", "POST", {
           "examNumber": examNumber,
           "examSubject": "ENGLISH",
-          "numberOfQuestion": 45,
-          "allotment": allotment,
           "examAnswer": answer,
       }).then((response) => {
           alert(response.result);
@@ -95,18 +82,11 @@ export default function TeacherAnswerForm({ color , examNumber }){
                 >
                   정답 선택
                 </th>
-                <th
-                    className={
-                      "px-6 align-middle border border-solid border-blueGray-200 py-3 text-xs uppercase whitespace-nowrap font-semibold text-center bg-blueGray-50 text-blueGray-500 border-blueGray-100 w-40"
-                    }
-                >
-                  배점
-                </th>
               </tr>
               </thead>
               <tbody>
               {tr.map((tr) => {
-                return <TeacherAnswerTr key={tr} number={tr}/>
+                return <StudentAnswerTr key={tr} number={tr}/>
               })
               }
               <tr>
@@ -116,19 +96,15 @@ export default function TeacherAnswerForm({ color , examNumber }){
                           "ml-3 font-bold blueGray"
                       }
                   >
-                    입력하기
+                    제출하기
                   </span>
-                  </td>
-                  <td className="border-blueGray-100 text-xs uppercase font-semibold text-center border border-solid"
-                  >
-
                   </td>
                   <td>
                       <button
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          onClick={SubmitAnswer}
+                          onClick={SubmitStudentEngAnswer}
                       >
-                          입력
+                          제출
                       </button>
                   </td>
               </tr>
@@ -141,10 +117,10 @@ export default function TeacherAnswerForm({ color , examNumber }){
 
 }
 
-TeacherAnswerForm.defaultProps = {
+StudentEngAnswerForm.defaultProps = {
   color: "light",
 };
 
-TeacherAnswerForm.propTypes = {
+StudentEngAnswerForm.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
