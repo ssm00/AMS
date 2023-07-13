@@ -3,7 +3,8 @@ import React from "react";
 import TeacherMain from "./teacher/TeacherMain";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
-import TeacherAnswer from "./teacher/TeacherAnswer";
+import TeacherEngAnswer from "./teacher/TeacherEngAnswer";
+import StudentEngAnswer from "./teacher/StudentEngAnswer";
 class AppRouter extends React.Component {
     render() {
         return (
@@ -17,7 +18,8 @@ class AppRouter extends React.Component {
                             <Route path="/users/*" element={<Login />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/sign-up" element={<SignUp />} />
-                            <Route path="/teacher/answer" element={<TeacherAnswer />} />
+                            <Route path="/teacher/answer" element={<TeacherEngAnswer />} />
+                            <Route path="/student/answer" element={<StudentEngAnswer />} />
                         </Routes>
                     </div>
                 </Router>
