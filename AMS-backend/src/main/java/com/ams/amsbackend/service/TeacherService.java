@@ -12,6 +12,7 @@ import com.ams.amsbackend.util.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -21,6 +22,7 @@ public class TeacherService {
     private final StudentAnswerRepository studentAnswerRepository;
     private final ExamAnswerRepository examAnswerRepository;
     private final StudentRepository studentRepository;
+    @Transactional
     public String markExams(String logInId, TeacherDto.BasicGetExamInfo examInfo) throws BaseException {
         // 예외처리: logInId가 teacher인지
         int todoCount = countToDoMark(examInfo);
@@ -185,19 +187,29 @@ public class TeacherService {
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
+    @Transactional
     public String inputAnswer(String logInId, TeacherDto.PostInputAnswersReq inputAnswerInfo) throws BaseException{
         // 예외처리: logInId가 teacher인지
         try {
-            ExamAnswerEntity examAnswerEntity = ExamAnswerEntity.builder()
-                    .examGrade(inputAnswerInfo.getGrade())
-                    .examNumber(inputAnswerInfo.getExamNumber())
-                    .subject(inputAnswerInfo.getExamSubject())
-                    .numberOfQuestion(inputAnswerInfo.getNumberOfQuestion())
-                    .allotment(inputAnswerInfo.getAllotment())
-                    .examAnswer(inputAnswerInfo.getExamAnswer())
-                    .build();
-            this.examAnswerRepository.save(examAnswerEntity);
-            return "정답이 입력되었습니다.";
+            ExamAnswerEntity examAnswerEntity = this.examAnswerRepository.findAllByExamGradeAndExamNumberAndSubject(inputAnswerInfo.getGrade(), inputAnswerInfo.getExamNumber(), inputAnswerInfo.getExamSubject());
+            if(examAnswerEntity == null){
+                examAnswerEntity = ExamAnswerEntity.builder()
+                        .examGrade(inputAnswerInfo.getGrade())
+                        .examNumber(inputAnswerInfo.getExamNumber())
+                        .subject(inputAnswerInfo.getExamSubject())
+                        .numberOfQuestion(inputAnswerInfo.getNumberOfQuestion())
+                        .allotment(inputAnswerInfo.getAllotment())
+                        .examAnswer(inputAnswerInfo.getExamAnswer())
+                        .build();
+                this.examAnswerRepository.save(examAnswerEntity);
+                return "정답이 입력되었습니다.";
+            }
+            else{
+                examAnswerEntity.setNumberOfQuestion(inputAnswerInfo.getNumberOfQuestion());
+                examAnswerEntity.setExamAnswer(inputAnswerInfo.getExamAnswer());
+                examAnswerEntity.setAllotment(inputAnswerInfo.getAllotment());
+                return "정답이 수정되었습니다.";
+            }
         }catch (Exception e){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
