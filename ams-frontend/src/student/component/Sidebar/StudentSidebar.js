@@ -19,7 +19,7 @@ export default function Sidebar() {
           {/* Brand */}
           <Link
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/login1"
+            to="/login"
           >
             Log Out
           </Link>
@@ -65,16 +65,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/student/english/inputAnswer") !== -1
+                    (window.location.href.indexOf("/student/english/answer") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/student/english/inputAnswer"
+                  to="/student/english/answer"
                 >
                   <i
                     className={
                       "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/student/english/inputAnswer") !== -1
+                      (window.location.href.indexOf("/student/english/answer") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -109,16 +109,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/student/math/inputAnswer") !== -1
+                    (window.location.href.indexOf("/student/math/answer") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/student/math/inputAnswer"
+                  to="/student/math/answer"
                 >
                   <i
                     className={
                       "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/student/math/inputAnswer") !== -1
+                      (window.location.href.indexOf("/student/math/answer") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
