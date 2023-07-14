@@ -3,7 +3,7 @@ import React from "react";
 // components
 
 import TeacherEngSidebar from "../component/Sidebar/TeacherEngSidebar";
-import TeacherHeaderStats from "../component/Header/TeacherHeaderStats";
+import TeacherHeader from "../component/Header/TeacherHeader";
 import TeacherModifyForm from "../component/AnswerInput/TeacherModifyForm";
 
 export default function TeacherEngModifyMain() {
@@ -15,7 +15,7 @@ export default function TeacherEngModifyMain() {
         <>
             <TeacherEngSidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
-                <TeacherHeaderStats
+                <TeacherHeader
                     changeExamNumber={changeExamNumber}
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">

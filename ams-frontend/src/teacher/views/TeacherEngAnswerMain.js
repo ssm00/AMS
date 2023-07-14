@@ -5,19 +5,22 @@ import React from "react";
 
 import TeacherAnswerForm from "../component/AnswerInput/TeacherAnswerForm";
 import TeacherEngSidebar from "../component/Sidebar/TeacherEngSidebar";
-import TeacherHeaderStats from "../component/Header/TeacherHeaderStats";
+import TeacherAnswerHeader from "../component/Header/TeacherAnswerHeader";
+import {call} from "../../service/ApiService";
 
 export default function TeacherEngAnswerMain() {
     const [examNumber, setExamNumber] = React.useState(1);
-    function changeExamNumber(examNumber){
-        setExamNumber(examNumber);
-    }
+    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
+        setExamNumber(response.result.eachAverageScoreList.length+1);
+    }).catch((error) => {
+        return;
+    });
     return (
         <>
             <TeacherEngSidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
-                <TeacherHeaderStats
-                    changeExamNumber={changeExamNumber}
+                <TeacherAnswerHeader
+                    examNumber={examNumber}
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <div className="flex flex-wrap">

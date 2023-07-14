@@ -8,7 +8,7 @@ import TeacherTopUserName from "./component/Cards/TeacherTopUserName";
 import TeacherEngBarChart from "./component/Cards/TeacherEngBarChart";
 import TeacherNormChart from "./component/Cards/TeacherNormChart";
 import TeacherEngSidebar from "./component/Sidebar/TeacherEngSidebar";
-import TeacherHeaderStats from "./component/Header/TeacherHeaderStats";
+import TeacherHeader from "./component/Header/TeacherHeader";
 
 export default function TeacherEngMain() {
     const [examNumber, setExamNumber] = React.useState(1);
@@ -19,7 +19,7 @@ export default function TeacherEngMain() {
         <>
             <TeacherEngSidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
-                <TeacherHeaderStats
+                <TeacherHeader
                     changeExamNumber={changeExamNumber}
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
