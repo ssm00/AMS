@@ -9,7 +9,7 @@ import TeacherHeaderStats from "../component/Header/TeacherHeaderStats";
 
 export default function TeacherEngAnswerMain() {
     const [examNumber, setExamNumber] = React.useState(1);
-    const changeExamNumber = (examNumber) => {
+    function changeExamNumber(examNumber){
         setExamNumber(examNumber);
     }
     return (

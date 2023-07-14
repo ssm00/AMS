@@ -1,11 +1,8 @@
 import React, {Fragment, useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import Select from "react-select";
+
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import TeacherEngStat from "./TeacherEngStat";
 import {call} from "../../../service/ApiService";
-import Chart from "chart.js";
 
 
 
@@ -20,18 +17,22 @@ export default function TeacherExamNumSelect({
 }) {
   const examNumber = [
     {
-      id: 1,
-      name: '1회차',
-    },
-    {
-      id: 2,
-      name: '2회차',
+        id: 1,
+        name: "1회차"
     },
   ]
-  const [selected, setSelected] = useState(examNumber[0])
+  const [selected, setSelected] = useState(examNumber[0]);
   call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
-    console.log(response.result);
+    for(let i=2; i<=response.result.eachAverageScoreList.length; i++){
+      examNumber.push({
+        id: i,
+        name: i+"회차"
+      })
+    }
   });
+  React.useEffect(() => {
+    changeExamNumber(selected.id);
+  },[selected])
   return (
       <Listbox value={selected} onChange={setSelected}>
         {({open}) => (
@@ -71,6 +72,7 @@ export default function TeacherExamNumSelect({
                                   value={examNumber}
                               >
                                 {({selected, active}) => (
+                                    //console.log("aa"+examNumber.name+"  b "+selected+" c "+active+"ccc"),
                                     <>
                                       <div className="flex items-center">
                                         <span
@@ -83,11 +85,11 @@ export default function TeacherExamNumSelect({
                                       {selected ? (
                                           <span
                                               className={classNames(
-                                                  active ? 'text-white' : 'text-indigo-600',
+                                                  active ? 'text-pink-400' : 'text-indigo-600',
                                                   'absolute inset-y-0 right-0 flex items-center pr-4'
                                               )}
                                           >
-                                            <CheckIcon className="h-5 w-5" aria-hidden="true"/>
+                                            <CheckIcon className="h-5 w-5" aria-hidden=""/>
                                           </span>
                                       ) : null}
                                     </>

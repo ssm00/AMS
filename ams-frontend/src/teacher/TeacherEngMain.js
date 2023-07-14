@@ -11,35 +11,41 @@ import TeacherEngSidebar from "./component/Sidebar/TeacherEngSidebar";
 import TeacherHeaderStats from "./component/Header/TeacherHeaderStats";
 
 export default function TeacherEngMain() {
+    const [examNumber, setExamNumber] = React.useState(1);
+    function changeExamNumber(examNumber){
+        setExamNumber(examNumber);
+    }
     return (
         <>
             <TeacherEngSidebar />
             <div className="relative md:ml-64 bg-blueGray-100">
-                <TeacherHeaderStats />
+                <TeacherHeaderStats
+                    changeExamNumber={changeExamNumber}
+                />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <div className="flex flex-wrap mt-4">
                         <div className="w-full xl:w-4/12 px-4">
                             <TeacherTopUserName
-                                examNumber={1}
+                                examNumber={examNumber}
                             />
                         </div>
                         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
                             <TeacherTopWrongRate
-                                examNumber={1}
+                                examNumber={examNumber}
                             />
                         </div>
                     </div>
                     <div className="flex flex-wrap">
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherEngBarChart
-                                examNumber={1}
+                                examNumber={examNumber}
                             />
                         </div>
                     </div>
                     <div className="flex flex-wrap">
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherNormChart
-                                examNumber={1}
+                                examNumber={examNumber}
                             />
                         </div>
                     </div>
