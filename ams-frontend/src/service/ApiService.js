@@ -24,6 +24,10 @@ export function call(api, method, request) {
     return fetch(options.url, options)
         .then((response) =>
             response.json().then((json) => {
+                if(json.isSuccess === false){
+                    alert(json.message);
+                    return Promise.reject(json);
+                }
                 if (!response.ok) {
                     return Promise.reject(json);
                 }
@@ -57,7 +61,7 @@ export function logIn(userDTO) {
 }
 
 export function signout() {
-    sessionStorage.setItem(ACCESS_TOKEN, null);
+    sessionStorage.clear();
     window.location.href = "/login";
 }
 

@@ -4,10 +4,12 @@ import React from "react";
 
 
 import TeacherEngStat from "./TeacherEngStat";
-import TeacherExamNumSelect from "./TeacherExamNumSelect";
+import TeacherExamNumStat from "./TeacherExamNumStat";
 
 //맨위에 4개
-export default function TeacherHeaderStats({changeExamNumber}) {
+export default function TeacherAnswerHeader(
+    props
+) {
   let userName = sessionStorage.getItem("userName");
   return (
     <>
@@ -23,8 +25,8 @@ export default function TeacherHeaderStats({changeExamNumber}) {
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
-                <TeacherExamNumSelect
-                    changeExamNumber={changeExamNumber}
+                <TeacherExamNumStat
+                    examNumber={props.examNumber}
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
