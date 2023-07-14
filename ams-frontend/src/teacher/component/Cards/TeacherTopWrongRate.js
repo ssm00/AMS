@@ -10,6 +10,8 @@ export default function TeacherTopWrongRate({examNumber}) {
     call("/ranking/wrong-rate", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
       setData(response.result.wrongRateInfoList);
       setIsFetched(true);
+    }).catch((error) => {
+      return;
     });
   },[isFetched,examNumber]);
   return (

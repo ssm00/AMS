@@ -29,6 +29,8 @@ export default function TeacherExamNumSelect({
         name: i+"회차"
       })
     }
+  }).catch((error) => {
+    return;
   });
   React.useEffect(() => {
     changeExamNumber(selected.id);

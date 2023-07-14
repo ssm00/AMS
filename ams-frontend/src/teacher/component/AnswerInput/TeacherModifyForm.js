@@ -32,8 +32,6 @@ export default function TeacherModifyForm({ color , examNumber }){
               allotment += allotmentElement[0].value + ",";
           }
       };
-      console.log(answer);
-      console.log(allotment);
       call("/teachers/answers", "POST", {
           "grade": 3,
           "examNumber": examNumber,
@@ -44,7 +42,7 @@ export default function TeacherModifyForm({ color , examNumber }){
       }).then((response) => {
           alert(response.result);
       }).catch((error) => {
-          alert(error);
+          return;
       });
     };
 

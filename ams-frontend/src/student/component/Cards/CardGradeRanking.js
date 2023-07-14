@@ -12,8 +12,10 @@ export default function CardGradeRanking({examNumber, examSubject}) {
       setData(response.result.top5StudentList);
       setIsFetched(true);
       console.log('top 5 score: '+data);
+    }).catch((error) => {
+      return;
     });
-  },[]);
+  },[examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

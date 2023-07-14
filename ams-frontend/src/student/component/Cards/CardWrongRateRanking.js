@@ -12,8 +12,10 @@ export default function CardWrongRateRanking({examNumber, examSubject}) {
       setData(response.result.wrongRateInfoList);
       setIsFetched(true);
       console.log('wrong rate: '+data);
+    }).catch((error) => {
+      return;
     });
-  },[]);
+  },[examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

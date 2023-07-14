@@ -102,6 +102,8 @@ export  default function TeacherEngAverageChart() {
       }
       var ctx = document.getElementById("line-chart").getContext("2d");
       window.myLine = new Chart(ctx, config);
+    }).catch((error) => {
+      return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
