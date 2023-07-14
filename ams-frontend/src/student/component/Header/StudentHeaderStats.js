@@ -1,13 +1,10 @@
 import React from "react";
-
-// components
-
-
-import StudentCardStat from "./StudentCardStat.js";
-import StudentCardSelect from "./StudentCardSelect.js"
+import StudentEngStat from "./StudentEngStat";
+import StudentExamNumSelect from "./StudentExamNumSelect";
 
 //맨위에 4개
-export default function StudentHeaderStats() {
+export default function StudentHeaderStats({changeExamNumber}) {
+  let userName = sessionStorage.getItem("userName");
   return (
     <>
       {/* Header */}
@@ -17,17 +14,18 @@ export default function StudentHeaderStats() {
             {/* Card stats */}
             <div className="flex flex-wrap">
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
-                <StudentCardStat
+                <StudentEngStat
                   statTitle="English"
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
-                <StudentCardSelect
+                <StudentExamNumSelect
+                    changeExamNumber={changeExamNumber}
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
-                <StudentCardStat
-                  statTitle="홍길동님"
+                <StudentEngStat
+                  statTitle={userName+"님"}
                 />
               </div>
             </div>
