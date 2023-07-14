@@ -8,6 +8,7 @@ import TeacherExamNumSelect from "./TeacherExamNumSelect";
 
 //맨위에 4개
 export default function TeacherHeaderStats({changeExamNumber}) {
+  let userName = sessionStorage.getItem("userName");
   return (
     <>
       {/* Header */}
@@ -28,7 +29,7 @@ export default function TeacherHeaderStats({changeExamNumber}) {
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
                 <TeacherEngStat
-                  statTitle="홍길동님"
+                  statTitle={userName+"님"}
                 />
               </div>
             </div>
