@@ -6,7 +6,7 @@ import SignUp from "./auth/SignUp";
 import TeacherEngAnswerMain from "./teacher/views/TeacherEngAnswerMain";
 import StudentEngAnswer from "./student/views/StudentEngAnswer";
 
-import EnglishMain from "./student/views/english";
+import StudentEngMain from "./student/views/StudentEngMain";
 import TeacherEngModifyMain from "./teacher/views/TeacherEngModifyMain";
 
 class AppRouter extends React.Component {
@@ -33,7 +33,7 @@ class AppRouter extends React.Component {
                             {/*student*/}
                             <Route path="/student" element={<Navigate replace to="/student/english/main"/>} />
                             <Route path="/student/english/answer" element={<StudentEngAnswer />} />
-                            <Route path="/student/english/main" element={<EnglishMain />} />
+                            <Route path="/student/english/main" element={<StudentEngMain />} />
 
                         </Routes>
                     </div>
