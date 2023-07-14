@@ -44,6 +44,7 @@ export function logIn(userDTO) {
         //학생이면 학생페이지로, 선생이면 선생페이지로 이동 추가해야함
         if (response.isSuccess) {
             sessionStorage.setItem(ACCESS_TOKEN, response.result.token);
+            sessionStorage.setItem("userName",response.result.userName)
             if (response.result.userType === "T") {
                 window.location.href = "/teacher";
             }else if(response.result.userType === "S") {
