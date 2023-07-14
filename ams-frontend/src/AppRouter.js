@@ -6,8 +6,8 @@ import SignUp from "./auth/SignUp";
 import TeacherEngAnswerMain from "./teacher/views/TeacherEngAnswerMain";
 import StudentEngAnswer from "./student/views/StudentEngAnswer";
 
-import EnglishMain from "./student/views/english";
-import TeacherModifyForm from "./teacher/component/AnswerInput/TeacherModifyForm";
+import StudentEngMain from "./student/views/StudentEngMain";
+import TeacherEngModifyMain from "./teacher/views/TeacherEngModifyMain";
 
 class AppRouter extends React.Component {
     render() {
@@ -28,12 +28,12 @@ class AppRouter extends React.Component {
                             <Route path="/teacher" element={<Navigate replace to="/teacher/english/main"/>} />
                             <Route path="/teacher/english/main" element={<TeacherEngMain />} />
                             <Route path="/teacher/english/answer" element={<TeacherEngAnswerMain />} />
-                            <Route path="/teacher/english/answer/modify" element={<TeacherModifyForm />} />
+                            <Route path="/teacher/english/modify" element={<TeacherEngModifyMain />} />
 
                             {/*student*/}
                             <Route path="/student" element={<Navigate replace to="/student/english/main"/>} />
                             <Route path="/student/english/answer" element={<StudentEngAnswer />} />
-                            <Route path="/student/english/main" element={<EnglishMain />} />
+                            <Route path="/student/english/main" element={<StudentEngMain />} />
 
                         </Routes>
                     </div>

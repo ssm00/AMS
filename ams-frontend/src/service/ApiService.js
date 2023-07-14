@@ -24,6 +24,10 @@ export function call(api, method, request) {
     return fetch(options.url, options)
         .then((response) =>
             response.json().then((json) => {
+                if(json.isSuccess === false){
+                    alert(json.message);
+                    return Promise.reject(json);
+                }
                 if (!response.ok) {
                     return Promise.reject(json);
                 }
@@ -44,6 +48,7 @@ export function logIn(userDTO) {
         //학생이면 학생페이지로, 선생이면 선생페이지로 이동 추가해야함
         if (response.isSuccess) {
             sessionStorage.setItem(ACCESS_TOKEN, response.result.token);
+            sessionStorage.setItem("userName",response.result.userName)
             if (response.result.userType === "T") {
                 window.location.href = "/teacher";
             }else if(response.result.userType === "S") {
@@ -56,7 +61,7 @@ export function logIn(userDTO) {
 }
 
 export function signout() {
-    sessionStorage.setItem(ACCESS_TOKEN, null);
+    sessionStorage.clear();
     window.location.href = "/login";
 }
 

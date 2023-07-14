@@ -104,9 +104,11 @@ export  default function TeacherEngBarChart({examNumber}) {
       }
       var ctx = document.getElementById("eng-bar-chart").getContext("2d");
       window.myLine = new Chart(ctx, barConfig);
+    }).catch((error) => {
+      return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">

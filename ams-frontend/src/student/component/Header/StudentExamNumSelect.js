@@ -11,7 +11,7 @@ function classNames(...classes) {
 }
 
 
-export default function TeacherExamNumSelect({
+export default function StudentExamNumSelect({
   options,
     changeExamNumber,
 }) {

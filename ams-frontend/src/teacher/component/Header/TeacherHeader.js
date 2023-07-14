@@ -1,9 +1,13 @@
 import React from "react";
-import StudentEngStat from "./StudentEngStat";
-import StudentExamNumSelect from "./StudentExamNumSelect";
+
+// components
+
+
+import TeacherEngStat from "./TeacherEngStat";
+import TeacherExamNumSelect from "./TeacherExamNumSelect";
 
 //맨위에 4개
-export default function StudentHeaderStats({changeExamNumber}) {
+export default function TeacherHeader({changeExamNumber}) {
   let userName = sessionStorage.getItem("userName");
   return (
     <>
@@ -14,17 +18,17 @@ export default function StudentHeaderStats({changeExamNumber}) {
             {/* Card stats */}
             <div className="flex flex-wrap">
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
-                <StudentEngStat
+                <TeacherEngStat
                   statTitle="English"
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
-                <StudentExamNumSelect
+                <TeacherExamNumSelect
                     changeExamNumber={changeExamNumber}
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
-                <StudentEngStat
+                <TeacherEngStat
                   statTitle={userName+"님"}
                 />
               </div>

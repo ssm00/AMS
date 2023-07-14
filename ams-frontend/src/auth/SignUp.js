@@ -159,8 +159,8 @@ export default function SignUp() {
                                 placeholder="학교"
                                 onChange={event => setSchoolName(event.target.value)}
                             >
-                              <option key="1" value="대원고등학교" >대원고</option>
-                              <option key="2" value="대원여자고" >대원여자고</option>
+                              <option key="1" value="대원고" >대원고</option>
+                              <option key="2" value="대원여고" >대원여고</option>
                               <option key="3" value="건대부고" >건대부고</option>
                               <option key="4" value="동대부여고" >동대부여고</option>
                             </select>

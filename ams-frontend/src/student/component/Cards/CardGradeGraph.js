@@ -117,6 +117,8 @@ export default function CardGradeGraph({examSubject}) {
         }
         var ctx = document.getElementById("line-chart").getContext("2d");
         window.myLine = new Chart(ctx, config);
+      }).catch((error) => {
+        return;
       });
 
   }, []);

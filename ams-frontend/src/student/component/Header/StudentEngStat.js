@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function StudentCardStat({
+export default function StudentEngStat({
   statTitle,
 }) {
   return (
@@ -21,7 +21,7 @@ export default function StudentCardStat({
   );
 }
 
-StudentCardStat.defaultProps = {
+StudentEngStat.defaultProps = {
   statSubtitle: "Traffic",
   statTitle: "350,897",
   statArrow: "up",
@@ -32,7 +32,7 @@ StudentCardStat.defaultProps = {
   statIconColor: "bg-red-500",
 };
 
-StudentCardStat.propTypes = {
+StudentEngStat.propTypes = {
   statSubtitle: PropTypes.string,
   statTitle: PropTypes.string,
   statArrow: PropTypes.oneOf(["up", "down"]),

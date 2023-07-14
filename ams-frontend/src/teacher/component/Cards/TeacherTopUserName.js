@@ -16,8 +16,10 @@ export default function TeacherTopUserName({examNumber}) {
       setStudent3(response.result.top5StudentList[2])
       setStudent4(response.result.top5StudentList[3])
       setStudent5(response.result.top5StudentList[4])
+    }).catch((error) => {
+      return;
     });
-  },[]);
+  },[examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

@@ -136,7 +136,7 @@ export default function Login() {
                         </a>
                       </div>
                       <div className="w-1/2 text-right">
-                        <Link to="/users/sign-up" className="text-blueGray-200">
+                        <Link to="/sign-up" className="text-blueGray-200">
                           <small>Create new account</small>
                         </Link>
                       </div>

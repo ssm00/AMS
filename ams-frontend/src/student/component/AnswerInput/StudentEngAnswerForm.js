@@ -31,7 +31,7 @@ export default function StudentEngAnswerForm({ color , examNumber }){
       }).then((response) => {
           alert(response.result);
       }).catch((error) => {
-          alert(error);
+          return;
       });
     };
 

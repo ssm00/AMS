@@ -112,6 +112,8 @@ export default function TeacherNormChart({examNumber}) {
       console.log(normConfig.data)
       var ctx = document.getElementById("eng-norm-chart").getContext("2d");
       window.myLine = new Chart(ctx, normConfig);
+    }).catch((error) => {
+      return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

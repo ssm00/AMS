@@ -9,14 +9,15 @@ export default function CardStudentGrade({examNumber, examSubject}) {
   const [isFetched, setIsFetched] = useState(false);
 
   React.useEffect(() => {
-    console.log('성적표');
     call("/users/grade-card", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : examSubject}).then((response) => {
       setData(response.result);
       setProblemList(response.result.eachProblemInfoList);
       setIsFetched(true);
-      console.log('성적표: '+data.studentRank);
+      console.log('성적표2: '+data.studentRank);
+    }).catch((error) => {
+      return;
     });
-  },[]);
+  },[examNumber,isFetched]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
