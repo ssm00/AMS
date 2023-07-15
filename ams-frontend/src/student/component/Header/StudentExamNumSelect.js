@@ -74,7 +74,6 @@ export default function StudentExamNumSelect({
                                   value={examNumber}
                               >
                                 {({selected, active}) => (
-                                    //console.log("aa"+examNumber.name+"  b "+selected+" c "+active+"ccc"),
                                     <>
                                       <div className="flex items-center">
                                         <span
