@@ -10,7 +10,7 @@ import TeacherNormChart from "./component/Cards/TeacherNormChart";
 import TeacherEngSidebar from "./component/Sidebar/TeacherEngSidebar";
 import TeacherHeader from "./component/Header/TeacherHeader";
 
-export default function TeacherEngMain() {
+export default function TeacherMathMain() {
     const [examNumber, setExamNumber] = React.useState(1);
     function changeExamNumber(examNumber){
         setExamNumber(examNumber);
@@ -21,20 +21,20 @@ export default function TeacherEngMain() {
             <div className="relative md:ml-64 bg-blueGray-100">
                 <TeacherHeader
                     changeExamNumber={changeExamNumber}
-                    statTitle="영어"
+                    statTitle="수학"
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <div className="flex flex-wrap mt-4">
                         <div className="w-full xl:w-4/12 px-4">
                             <TeacherTopUserName
                                 examNumber={examNumber}
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
                             <TeacherTopWrongRate
                                 examNumber={examNumber}
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                     </div>
@@ -42,7 +42,7 @@ export default function TeacherEngMain() {
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherEngBarChart
                                 examNumber={examNumber}
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                     </div>
@@ -50,14 +50,14 @@ export default function TeacherEngMain() {
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherNormChart
                                 examNumber={examNumber}
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                     </div>
                     <div className="flex flex-wrap">
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherEngAverageChart
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                     </div>

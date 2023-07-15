@@ -17,12 +17,15 @@ export default function TeacherEngModifyMain() {
             <div className="relative md:ml-64 bg-blueGray-100">
                 <TeacherHeader
                     changeExamNumber={changeExamNumber}
+                    statTitle="영어"
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <div className="flex flex-wrap">
                         <div className="w-full mb-12 xl:mb-0 px-4">
                             <TeacherModifyForm
+                                color="light"
                                 examNumber={examNumber}
+                                examSubject="ENGLISH"
                             />
                         </div>
                     </div>

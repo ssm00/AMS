@@ -4,7 +4,7 @@ import TeacherAnswerTr from "./TeacherAnswerTr";
 import {call} from "../../../service/ApiService";
 // components
 
-export default function TeacherModifyForm({ color , examNumber }){
+export default function TeacherModifyForm(props){
   const tr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
   let answer = "";
   let allotment = "";
@@ -34,8 +34,8 @@ export default function TeacherModifyForm({ color , examNumber }){
       };
       call("/teachers/answers", "POST", {
           "grade": 3,
-          "examNumber": examNumber,
-          "examSubject": "ENGLISH",
+          "examNumber": props.examNumber,
+          "examSubject": props.examSubject,
           "numberOfQuestion": 45,
           "allotment": allotment,
           "examAnswer": answer,
@@ -51,7 +51,7 @@ export default function TeacherModifyForm({ color , examNumber }){
         <div
             className={
                 "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-                (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
+                (props.color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
             }
         >
           <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -60,7 +60,7 @@ export default function TeacherModifyForm({ color , examNumber }){
                 <h3
                     className={
                         "font-semibold text-lg " +
-                        (color === "light" ? "text-blueGray-700" : "text-white")
+                        (props.color === "light" ? "text-blueGray-700" : "text-white")
                     }
                 >
                   시험 정답 입력
@@ -76,7 +76,7 @@ export default function TeacherModifyForm({ color , examNumber }){
                 <th
                     className={
                         "px-6 align-middle border border-solid border-blueGray-200 py-3 text-xs uppercase whitespace-nowrap font-semibold text-center " +
-                        (color === "light"
+                        (props.color === "light"
                             ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100 w-3.5"
                             : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                     }
@@ -86,7 +86,7 @@ export default function TeacherModifyForm({ color , examNumber }){
                 <th
                     className={
                         "px-6 align-middle border border-solid border-blueGray-200 py-3 text-xs uppercase whitespace-nowrap font-semibold text-center " +
-                        (color === "light"
+                        (props.color === "light"
                             ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                             : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                     }
@@ -138,11 +138,3 @@ export default function TeacherModifyForm({ color , examNumber }){
   );
 
 }
-
-TeacherModifyForm.defaultProps = {
-  color: "light",
-};
-
-TeacherModifyForm.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
-};

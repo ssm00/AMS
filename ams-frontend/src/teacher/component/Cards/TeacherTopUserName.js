@@ -3,14 +3,14 @@ import {call} from "../../../service/ApiService";
 
 // components
 
-export default function TeacherTopUserName({examNumber}) {
+export default function TeacherTopUserName(props) {
   const [student1,setStudent1] = useState({});
   const [student2,setStudent2] = useState({});
   const [student3,setStudent3] = useState({});
   const [student4,setStudent4] = useState({});
   const [student5,setStudent5] = useState({});
   useEffect(() => {
-    call("/ranking/top5-score", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
+    call("/ranking/top5-score", "POST", {"examNumber": props.examNumber ,"grade" : 3, "examSubject" : props.examSubject}).then((response) => {
       setStudent1(response.result.top5StudentList[0])
       setStudent2(response.result.top5StudentList[1])
       setStudent3(response.result.top5StudentList[2])
@@ -19,7 +19,7 @@ export default function TeacherTopUserName({examNumber}) {
     }).catch((error) => {
       return;
     });
-  },[examNumber]);
+  },[props.examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

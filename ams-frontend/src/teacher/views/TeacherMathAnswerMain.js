@@ -8,9 +8,9 @@ import TeacherEngSidebar from "../component/Sidebar/TeacherEngSidebar";
 import TeacherAnswerHeader from "../component/Header/TeacherAnswerHeader";
 import {call} from "../../service/ApiService";
 
-export default function TeacherEngAnswerMain() {
+export default function TeacherMathAnswerMain() {
     const [examNumber, setExamNumber] = React.useState(1);
-    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
+    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "MATH"}).then((response) => {
         setExamNumber(response.result.eachAverageScoreList.length+1);
     }).catch((error) => {
         return;
@@ -21,7 +21,7 @@ export default function TeacherEngAnswerMain() {
             <div className="relative md:ml-64 bg-blueGray-100">
                 <TeacherAnswerHeader
                     examNumber={examNumber}
-                    statTitle="영어"
+                    statTitle="수학"
                 />
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
                     <div className="flex flex-wrap">
@@ -29,7 +29,7 @@ export default function TeacherEngAnswerMain() {
                             <TeacherAnswerForm
                                 color="light"
                                 examNumber={examNumber}
-                                examSubject="ENGLISH"
+                                examSubject="MATH"
                             />
                         </div>
                     </div>

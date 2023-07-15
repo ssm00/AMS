@@ -7,7 +7,7 @@ import TeacherEngStat from "./TeacherEngStat";
 import TeacherExamNumSelect from "./TeacherExamNumSelect";
 
 //맨위에 4개
-export default function TeacherHeader({changeExamNumber}) {
+export default function TeacherHeader(props) {
   let userName = sessionStorage.getItem("userName");
   return (
     <>
@@ -19,12 +19,12 @@ export default function TeacherHeader({changeExamNumber}) {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
                 <TeacherEngStat
-                  statTitle="영어"
+                  statTitle={props.statTitle}
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
                 <TeacherExamNumSelect
-                    changeExamNumber={changeExamNumber}
+                    changeExamNumber={props.changeExamNumber}
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4">
