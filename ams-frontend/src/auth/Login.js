@@ -16,7 +16,6 @@ export default function Login() {
   }
   return (
     <>
-      <Navbar transparent />
       <main>
         <section className="relative w-full h-full py-40 min-h-screen">
           <div

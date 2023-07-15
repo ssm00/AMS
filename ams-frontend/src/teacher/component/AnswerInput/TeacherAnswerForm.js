@@ -46,6 +46,16 @@ export default function TeacherAnswerForm({ color , examNumber }){
       });
     };
 
+  const [studentNumber, setStudentNumber] = React.useState(0);
+  call("/teachers/todo-mark-count", "POST", {
+      "grade": 3,
+      "examNumber": examNumber,
+      "examSubject": "ENGLISH",
+    }).then((response) => {
+        setStudentNumber(response.result.numberOfStudent);
+    }).catch((error) => {
+        return;
+    });
   return (
       <>
         <div
@@ -114,7 +124,7 @@ export default function TeacherAnswerForm({ color , examNumber }){
                           "ml-3 font-bold blueGray"
                       }
                   >
-                    입력하기
+                    정답 입력
                   </span>
                   </td>
                   <td className="border-blueGray-100 text-xs uppercase font-semibold text-center border border-solid"
@@ -126,7 +136,36 @@ export default function TeacherAnswerForm({ color , examNumber }){
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           onClick={SubmitAnswer}
                       >
-                          입력
+                          정답 입력
+                      </button>
+                  </td>
+              </tr>
+              <tr>
+                  <td className="border-t-0 px-6 align-middle border border-solid text-xs whitespace-nowrap p-4 text-left flex items-center">
+                  <span
+                      className={
+                          "ml-3 font-bold blueGray"
+                      }
+                  >
+                    채점하기
+                  </span>
+                  </td>
+                  <td className="border-blueGray-100 text-xs uppercase font-semibold text-center border border-solid"
+                  >
+                      <span
+                          className={
+                              "ml-3 font-bold blueGray"
+                          }
+                      >
+                          채점이 완료되지 않은 학생 수 : {studentNumber}
+                    </span>
+                  </td>
+                  <td>
+                      <button
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          onClick={SubmitAnswer}
+                      >
+                          채점하기
                       </button>
                   </td>
               </tr>

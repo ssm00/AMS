@@ -12,7 +12,6 @@ export default function CardStudentScoreRanking({examSubject}) {
     call("/ranking/user-score", "GET", null).then((response) => {
       setData(response.result.scoreInfoList);
       setIsFetched(true);
-      console.log('개인 성적 랭킹: '+data);
     }).catch((error) => {
         return;
     });
