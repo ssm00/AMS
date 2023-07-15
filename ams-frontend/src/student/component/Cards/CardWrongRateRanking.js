@@ -7,11 +7,9 @@ export default function CardWrongRateRanking({examNumber, examSubject}) {
   const [data, setData] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
   React.useEffect(() => {
-    console.log('wrong rate');
     call("/ranking/wrong-rate", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : examSubject}).then((response) => {
       setData(response.result.wrongRateInfoList);
       setIsFetched(true);
-      console.log('wrong rate: '+data);
     }).catch((error) => {
       return;
     });
