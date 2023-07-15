@@ -113,7 +113,6 @@ export default function CardGradeGraph({examSubject}) {
           config.data.datasets[0].data.push(response.result.eachExamNumberInfos[i].studentScore);
           config.data.datasets[1].data.push(response.result.eachExamNumberInfos[i].studentRank);
           config.data.datasets[2].data.push(response.result.eachExamNumberInfos[i].totalStudents);
-
         }
         var ctx = document.getElementById("line-chart").getContext("2d");
         window.myLine = new Chart(ctx, config);

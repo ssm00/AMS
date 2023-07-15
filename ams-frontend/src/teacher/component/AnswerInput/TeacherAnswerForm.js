@@ -46,6 +46,19 @@ export default function TeacherAnswerForm(props){
       });
     };
 
+  function markExam(e){
+      e.preventDefault();
+      call("/teachers/mark-exams", "POST", {
+            "grade": 3,
+            "examNumber": props.examNumber,
+            "examSubject": props.examSubject
+      }).then((response) => {
+          alert(response.result);
+      }).catch((error) => {
+          return;
+      });
+  }
+
   const [studentNumber, setStudentNumber] = React.useState(0);
   call("/teachers/todo-mark-count", "POST", {
       "grade": 3,
@@ -163,7 +176,7 @@ export default function TeacherAnswerForm(props){
                   <td>
                       <button
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          onClick={SubmitAnswer}
+                          onClick={markExam}
                       >
                           채점하기
                       </button>
