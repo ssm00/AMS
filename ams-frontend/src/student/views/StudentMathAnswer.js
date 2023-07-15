@@ -9,7 +9,7 @@ import StudentHeaderStats from "../component/Header/StudentHeaderStats.js";
 import StudentAnswerHeader from "../component/Header/StudentAnswerHeader";
 import {call} from "../../service/ApiService";
 
-export default function StudentEngAnswer() {
+export default function StudentMathAnswer() {
     const [examNumber, setExamNumber] = React.useState(1);
     call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
         setExamNumber(response.result.eachAverageScoreList.length+1);

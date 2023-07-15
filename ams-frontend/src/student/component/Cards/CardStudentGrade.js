@@ -13,7 +13,6 @@ export default function CardStudentGrade({examNumber, examSubject}) {
       setData(response.result);
       setProblemList(response.result.eachProblemInfoList);
       setIsFetched(true);
-      console.log('성적표2: '+data.studentRank);
     }).catch((error) => {
       return;
     });
