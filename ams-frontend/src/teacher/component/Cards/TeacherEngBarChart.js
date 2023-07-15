@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Chart from "chart.js";
 import {call} from "../../../service/ApiService";
 
-export  default function TeacherEngBarChart({examNumber}) {
+export  default function TeacherEngBarChart(props) {
   const [data, setData] = useState([]);
   var barConfig = {
     type: "bar",
@@ -97,7 +97,7 @@ export  default function TeacherEngBarChart({examNumber}) {
     },
   };
   React.useEffect(() => {
-    call("/teachers/distribution-table", "POST", {"grade" : 3, "examNumber" : examNumber ,"examSubject" : "ENGLISH"}).then((response) => {
+    call("/teachers/distribution-table", "POST", {"grade" : 3, "examNumber" : props.examNumber ,"examSubject" : props.examSubject}).then((response) => {
       for (let i = 0; i < response.result.eachStudentScoreList.length; i++) {
         barConfig.data.labels.push(response.result.eachStudentScoreList[i].name);
         barConfig.data.datasets[0].data.push(response.result.eachStudentScoreList[i].studentScore);
@@ -108,7 +108,7 @@ export  default function TeacherEngBarChart({examNumber}) {
       return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [examNumber]);
+  }, [props.examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
@@ -118,7 +118,7 @@ export  default function TeacherEngBarChart({examNumber}) {
               <h6 className="uppercase text-blueGray-500 mb-1 text-xs font-semibold">
                 성적 그래프
               </h6>
-              <h2 className="text-blueGray-700 text-xl font-semibold">{examNumber}회차 성적 그래프</h2>
+              <h2 className="text-blueGray-700 text-xl font-semibold">{props.examNumber}회차 성적 그래프</h2>
             </div>
           </div>
         </div>

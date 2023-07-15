@@ -3,17 +3,17 @@ import {call} from "../../../service/ApiService";
 
 // components
 
-export default function TeacherTopWrongRate({examNumber}) {
+export default function TeacherTopWrongRate(props) {
   const [data, setData] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
   useEffect(() => {
-    call("/ranking/wrong-rate", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
+    call("/ranking/wrong-rate", "POST", {"examNumber": props.examNumber ,"grade" : 3, "examSubject" : props.examSubject}).then((response) => {
       setData(response.result.wrongRateInfoList);
       setIsFetched(true);
     }).catch((error) => {
       return;
     });
-  },[isFetched,examNumber]);
+  },[isFetched,props.examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -21,7 +21,7 @@ export default function TeacherTopWrongRate({examNumber}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-blueGray-700">
-                {examNumber}회차 오답률 순위
+                {props.examNumber}회차 오답률 순위
               </h3>
             </div>
             <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">

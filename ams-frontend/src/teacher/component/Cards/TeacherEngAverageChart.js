@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Chart from "chart.js";
 import {call} from "../../../service/ApiService";
 
-export  default function TeacherEngAverageChart() {
+export  default function TeacherEngAverageChart(props) {
   const [data, setData] = useState([]);
   var config = {
     type: "line",
@@ -95,7 +95,7 @@ export  default function TeacherEngAverageChart() {
     },
   };
   React.useEffect(() => {
-    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : "ENGLISH"}).then((response) => {
+    call("/teachers/average-graph", "POST", {"grade" : 3, "examSubject" : props.examSubject}).then((response) => {
       for (var i = 0; i < response.result.eachAverageScoreList.length; i++) {
         config.data.labels.push(response.result.eachAverageScoreList[i].examNumber + "회차");
         config.data.datasets[0].data.push(response.result.eachAverageScoreList[i].averageScore);

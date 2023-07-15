@@ -107,7 +107,70 @@ export default function TeacherEngSidebar() {
                     ></i>{" "}
                     영어 정답 수정
                   </Link>
+                    <li className="items-center">
+                        <Link
+                            className={
+                                "text-xs uppercase py-3 font-bold block " +
+                                (window.location.href.indexOf("/teacher/math/main") !== -1
+                                    ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                    : "text-blueGray-700 hover:text-blueGray-500")
+                            }
+                            to="/teacher/math/main"
+                        >
+                            <i
+                                className={
+                                    "fas fa-tv mr-2 text-sm " +
+                                    (window.location.href.indexOf("/teacher/math/main") !== -1
+                                        ? "opacity-75"
+                                        : "text-blueGray-300")
+                                }
+                            ></i>{" "}
+                            수학
+                        </Link>
+                    </li>
                 </li>
+                  <li className="items-center">
+                      <Link
+                          className={
+                              "text-xs uppercase py-3 font-bold block " +
+                              (window.location.href.indexOf("/teacher/math/answer") !== -1
+                                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                  : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/teacher/math/answer"
+                      >
+                          <i
+                              className={
+                                  "fas fa-tv mr-2 text-sm " +
+                                  (window.location.href.indexOf("/teacher/math/answer") !== -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300")
+                              }
+                          ></i>{" "}
+                          수학 정답 입력
+                      </Link>
+                  </li>
+                  <li className="items-center">
+                      <Link
+                          className={
+                              "text-xs uppercase py-3 font-bold block " +
+                              (window.location.href.indexOf("/teacher/math/modify") !== -1
+                                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                  : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/teacher/math/modify"
+                      >
+                          <i
+                              className={
+                                  "fas fa-tv mr-2 text-sm " +
+                                  (window.location.href.indexOf("/teacher/math/modify") !== -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300")
+                              }
+                          ></i>{" "}
+                          수학 정답 수정
+                      </Link>
+                  </li>
 
               </ul>
             </div>

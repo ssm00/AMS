@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Chart from "chart.js";
 import {call} from "../../../service/ApiService";
 
-export default function TeacherNormChart({examNumber}) {
+export default function TeacherNormChart(props) {
   const [data, setData] = useState([]);
   let normConfig = {
     type: "line",
@@ -104,12 +104,11 @@ export default function TeacherNormChart({examNumber}) {
     },
   };
   React.useEffect(() => {
-    call("/teachers/distributionCount-table", "POST", {"grade" : 3, "examNumber" : examNumber ,"examSubject" : "ENGLISH"}).then((response) => {
+    call("/teachers/distributionCount-table", "POST", {"grade" : 3, "examNumber" : props.examNumber ,"examSubject" : props.examSubject}).then((response) => {
       for (let i = 0; i < response.result.eachStudentScoreCountList.length; i++) {
         normConfig.data.labels.push(response.result.eachStudentScoreCountList[i].score);
         normConfig.data.datasets[0].data.push(response.result.eachStudentScoreCountList[i].count);
       }
-      console.log(normConfig.data)
       var ctx = document.getElementById("eng-norm-chart").getContext("2d");
       window.myLine = new Chart(ctx, normConfig);
     }).catch((error) => {
@@ -127,7 +126,7 @@ export default function TeacherNormChart({examNumber}) {
                 성적 그래프
               </h6>
               <h2 className="text-blueGray-700 text-xl font-semibold">
-                {examNumber}회차 성적 정규 분포
+                {props.examNumber}회차 성적 정규 분포
               </h2>
             </div>
           </div>
