@@ -11,21 +11,21 @@ export default function CardGradeGraph({examSubject}) {
         labels: [],
         datasets: [
           {
-            label: 'Score',
+            label: '점수',
             backgroundColor: "#FFF",
             borderColor: "#FFF",
             data: [],
             fill: false,
           },
           {
-            label: 'Rank',
+            label: '등수',
             fill: false,
             backgroundColor: "#334155",
             borderColor: "#334155",
             data: [],
           },
           {
-            label: 'Total',
+            label: '총인원',
             fill: false,
             backgroundColor: "#334155",
             borderColor: "#334155",
@@ -131,7 +131,7 @@ export default function CardGradeGraph({examSubject}) {
               <h6 className="uppercase text-blueGray-100 mb-1 text-xs font-semibold">
                 성적 그래프
               </h6>
-              <h2 className="text-white text-xl font-semibold">{examSubject}</h2>
+              <h2 className="text-white text-xl font-semibold">{examSubject === "ENGLISH" ? "영어" : "수학"}</h2>
             </div>
           </div>
         </div>

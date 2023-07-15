@@ -19,7 +19,7 @@ export default function TeacherHeader({changeExamNumber}) {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
                 <TeacherEngStat
-                  statTitle="English"
+                  statTitle="영어"
                 />
               </div>
               <div className="w-full lg:w-4/12 xl:w-4/12 px-4 h-100">
