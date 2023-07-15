@@ -7,11 +7,9 @@ export default function CardGradeRanking({examNumber, examSubject}) {
   const [data, setData] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
   React.useEffect(() => {
-    console.log('top 5 score');
     call("/ranking/top5-score", "POST", {"examNumber": examNumber ,"grade" : 3, "examSubject" : examSubject}).then((response) => {
       setData(response.result.top5StudentList);
       setIsFetched(true);
-      console.log('top 5 score: '+data);
     }).catch((error) => {
       return;
     });

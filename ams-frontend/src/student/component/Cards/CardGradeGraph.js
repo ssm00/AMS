@@ -108,7 +108,7 @@ export default function CardGradeGraph({examSubject}) {
     React.useEffect(() => {
       call("/users/grade-graph", "GET", null).then((response) => {
         setData(response.result.eachExamNumberInfos);
-        for(let i=0; i < response.result.eachExamNumberInfos.length; i++){
+        for(let i=response.result.eachExamNumberInfos.length-1; i >= 0; i--){
           config.data.labels.push(response.result.eachExamNumberInfos[i].examNumber + "회차");
           config.data.datasets[0].data.push(response.result.eachExamNumberInfos[i].studentScore);
           config.data.datasets[1].data.push(response.result.eachExamNumberInfos[i].studentRank);

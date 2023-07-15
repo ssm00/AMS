@@ -8,7 +8,6 @@ export default function CardStudentScoreRanking({examSubject}) {
   const [isFetched, setIsFetched] = useState(false);
 
   React.useEffect(() => {
-    console.log('개인 성적 랭킹');
     call("/ranking/user-score", "GET", null).then((response) => {
       setData(response.result.scoreInfoList);
       setIsFetched(true);
