@@ -81,7 +81,7 @@ export default function TeacherTopUserName(props) {
                   {student2.studentRank}
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {student1.name}
+                  {student2.name}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex items-center">

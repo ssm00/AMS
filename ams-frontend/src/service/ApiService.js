@@ -25,7 +25,6 @@ export function call(api, method, request) {
         .then((response) =>
             response.json().then((json) => {
                 if(json.isSuccess === false){
-                    alert(json.message);
                     return Promise.reject(json);
                 }
                 if (!response.ok) {
@@ -69,6 +68,7 @@ export function signup(userDTO) {
     return call("/users/sign-up", "POST", userDTO).then((response) => {
         console.log(response);
         if (response.isSuccess) {
+            alert("회원가입이 완료되었습니다.");
             window.location.href = "/login";
         } else {
             alert(response.message);
