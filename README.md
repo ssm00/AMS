@@ -5,3 +5,7 @@
 | JavaScript | TypeScript |  React   |  Node   |
 | :--------: | :--------: | :------: | :-----: |
 |   ![js]    |   ![ts]    | ![react] | ![node] |
+[js]: /images/stack/javascript.svg
+[ts]: /images/stack/typescript.svg
+[react]: /images/stack/react.svg
+[node]: /images/stack/node.svg
