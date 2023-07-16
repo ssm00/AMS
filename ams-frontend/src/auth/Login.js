@@ -62,10 +62,6 @@ export default function Login() {
                         <hr className="mt-6 border-b-1 border-blueGray-300" />
                       </div>
                       <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                        <div className="text-blueGray-400 text-center mb-3 font-bold">
-                          <small>Or sign in with credentials</small>
-                        </div>
-                        {/*submit*/}
                         <form onSubmit={handleSubmit} method="post">
                           <div className="relative w-full mb-3">
                             <label

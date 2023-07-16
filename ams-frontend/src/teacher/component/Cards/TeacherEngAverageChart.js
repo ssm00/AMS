@@ -106,7 +106,7 @@ export  default function TeacherEngAverageChart(props) {
       return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">

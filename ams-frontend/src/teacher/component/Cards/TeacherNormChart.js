@@ -7,17 +7,17 @@ export default function TeacherNormChart(props) {
   let normConfig = {
     type: "line",
     data: {
-      labels: [10,20,30,40,50,60,70,80,90,100
+      labels: [
       ],
       datasets: [
         {
           label: "명",
           backgroundColor: "#ed64a6",
           borderColor: "#ed64a6",
-          data: [0,0,0,0,0,0,0,0,0,0],
+          data: [],
           fill: false,
           barThickness: 8,
-          tension: 1,
+          tension: 0.3,
         },
       ],
     },
@@ -67,7 +67,7 @@ export default function TeacherNormChart(props) {
             ticks: {
               fontColor: "rgba(0,0,0)",
               stepSize: 1,
-              suggestedMax : 10,
+              suggestedMax : 3,
               min: 0,
             },
             display: true,
@@ -103,11 +103,41 @@ export default function TeacherNormChart(props) {
       }
     },
   };
+  let array = new Array(
+      {key : 10,
+            value: 0},
+      {key : 20,
+        value: 0},
+      {key : 30,
+        value: 0},
+      {key : 40,
+        value: 0},
+      {key : 50,
+        value: 0},
+      {key : 60,
+        value: 0},
+      {key : 70,
+        value: 0},
+      {key : 80,
+        value: 0},
+      {key : 90,
+        value: 0},
+      {key : 100,
+        value: 0},
+  );
   React.useEffect(() => {
     call("/teachers/distributionCount-table", "POST", {"grade" : 3, "examNumber" : props.examNumber ,"examSubject" : props.examSubject}).then((response) => {
       for (let i = 0; i < response.result.eachStudentScoreCountList.length; i++) {
-        normConfig.data.labels.push(response.result.eachStudentScoreCountList[i].score);
-        normConfig.data.datasets[0].data.push(response.result.eachStudentScoreCountList[i].count);
+        if(array.includes(response.result.eachStudentScoreCountList[i].score)){
+            array.find((element) => element.key === response.result.eachStudentScoreCountList[i].score).value = response.result.eachStudentScoreCountList[i].count;
+        }else{
+            array.push({key : response.result.eachStudentScoreCountList[i].score, value : response.result.eachStudentScoreCountList[i].count});
+        }
+      }
+      array.sort((a,b) => a.key-b.key);
+      for(let i = 0; i < array.length; i++){
+        normConfig.data.labels.push(array[i].key);
+        normConfig.data.datasets[0].data.push(array[i].value);
       }
       var ctx = document.getElementById("eng-norm-chart").getContext("2d");
       window.myLine = new Chart(ctx, normConfig);
@@ -115,7 +145,7 @@ export default function TeacherNormChart(props) {
       return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.examNumber]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
