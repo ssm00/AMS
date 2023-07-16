@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96px" height="96px" viewBox="0 0 96 96" version="1.1">
+<defs>
+<filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+  <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+</filter>
+<mask id="mask0">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="96" height="96" style="fill:rgb(0%,0%,0%);fill-opacity:0.8;stroke:none;"/>
+  </g>
+</mask>
+<clipPath id="clip1">
+  <rect x="0" y="0" width="96" height="96"/>
+</clipPath>
+<g id="surface5" clip-path="url(#clip1)">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(99.607843%,38.039216%,51.764706%);fill-opacity:1;" d="M 15.414062 54.167969 C 19.082031 44.007812 20.667969 35.777344 27.671875 35.777344 C 38.355469 35.777344 40.902344 65.796875 50.0625 62.742188 C 59.21875 59.691406 58.203125 43.410156 72.449219 43.410156 C 75.164062 43.410156 77.929688 45.070312 80.636719 47.757812 L 80.636719 66.8125 L 48.027344 85.640625 L 15.414062 66.8125 Z M 15.414062 54.167969 "/>
+</g>
+</defs>
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(21.176471%,63.529412%,92.156863%);fill-opacity:1;" d="M 80.636719 48.277344 C 69.453125 48.496094 71.78125 55.578125 63.898438 57.367188 C 55.890625 59.1875 54.628906 37.8125 46.621094 37.8125 C 38.617188 37.8125 36.84375 58.574219 26.820312 72.828125 L 26.53125 73.234375 L 48.027344 85.640625 L 80.636719 66.8125 Z M 80.636719 48.277344 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,80.784314%,33.72549%);fill-opacity:1;" d="M 80.636719 47.632812 C 76.890625 42.828125 74.351562 37.304688 68.886719 37.304688 C 59.21875 37.304688 61.765625 53.078125 51.078125 53.078125 C 40.390625 53.078125 39.269531 36.113281 27.164062 52.058594 C 23.304688 57.140625 20.199219 62.808594 17.761719 68.167969 L 48.027344 85.640625 L 80.636719 66.816406 Z M 80.636719 47.632812 "/>
+<use xlink:href="#surface5" mask="url(#mask0)"/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(90.588235%,91.372549%,92.941176%);fill-opacity:1;" d="M 48 88 L 13.355469 68 L 13.355469 28 L 48 8 L 82.644531 28 L 82.644531 68 Z M 17.425781 65.652344 L 48 83.300781 L 78.574219 65.652344 L 78.574219 30.351562 L 48 12.699219 L 17.425781 30.351562 Z M 17.425781 65.652344 "/>
+</g>
+</svg>
