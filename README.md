@@ -367,3 +367,9 @@ https://documenter.getpostman.com/view/23387103/2s946feDGM
 [sdj]: /image/icons/springdatajpa.png
 [mdb]: /image/icons/mariadb.png
 
+
+
+## Member
+|[서수민](https://github.com/ssm00)|[유병규](https://github.com/Gyulguma)|
+|:---:|:---:|
+| **Frontend & Backend Developer** | **Frontend & Backend Developer**|
