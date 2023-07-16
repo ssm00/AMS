@@ -15,7 +15,6 @@ export default function TeacherEngMain() {
     function changeExamNumber(examNumber){
         setExamNumber(examNumber);
         if(window.myLine != undefined){
-          console.log("destroy");
           window.myLine.destroy();
         }
     }

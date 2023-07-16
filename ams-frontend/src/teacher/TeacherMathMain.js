@@ -14,6 +14,9 @@ export default function TeacherMathMain() {
     const [examNumber, setExamNumber] = React.useState(1);
     function changeExamNumber(examNumber){
         setExamNumber(examNumber);
+        if(window.myLine != undefined){
+            window.myLine.destroy();
+        }
     }
     return (
         <>
