@@ -109,10 +109,12 @@ export default function CardGradeGraph({examSubject}) {
       call("/users/grade-graph", "GET", null).then((response) => {
         setData(response.result.eachExamNumberInfos);
         for(let i=0; i < response.result.eachExamNumberInfos.length; i++){
-          config.data.labels.push(response.result.eachExamNumberInfos[i].examNumber + "회차");
-          config.data.datasets[0].data.push(response.result.eachExamNumberInfos[i].studentScore);
-          config.data.datasets[1].data.push(response.result.eachExamNumberInfos[i].studentRank);
-          config.data.datasets[2].data.push(response.result.eachExamNumberInfos[i].totalStudents);
+          if(response.result.eachExamNumberInfos[i].subject === examSubject) {
+            config.data.labels.push(response.result.eachExamNumberInfos[i].examNumber + "회차");
+            config.data.datasets[0].data.push(response.result.eachExamNumberInfos[i].studentScore);
+            config.data.datasets[1].data.push(response.result.eachExamNumberInfos[i].studentRank);
+            config.data.datasets[2].data.push(response.result.eachExamNumberInfos[i].totalStudents);
+          }
         }
         var ctx = document.getElementById("line-chart").getContext("2d");
         window.myLine = new Chart(ctx, config);
