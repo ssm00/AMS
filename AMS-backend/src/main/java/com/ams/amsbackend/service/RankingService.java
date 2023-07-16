@@ -166,10 +166,8 @@ public class RankingService {
         if (logInId == null) {
             throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
         }
-        System.out.println("loginID: "+ logInId);
         ArrayList<EachScoreInfo> top5ScoreList = new ArrayList<>();
         Optional<StudentEntity> studentEntity = studentRepository.findByLoginId(logInId);
-        log.info("st entity",studentEntity);
         if (studentEntity.isEmpty()) {
             // 데이터를 찾지 못한 경우 RuntimeException 처리
             throw new BaseException(BaseResponseStatus.JPA_TOP5_SCORE);
