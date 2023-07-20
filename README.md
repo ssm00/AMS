@@ -23,15 +23,15 @@
 
 ## Preview
 <br>
-<img src="https://github.com/ssm00/AMS/assets/97657265/d51f59af-cd36-4305-9cec-72b49dadca45" width="500" height="300">
-<img src="https://github.com/ssm00/AMS/assets/97657265/8f75d422-1c44-4a62-933d-26336242a22d" width="500" height="300">
+<img src="https://github.com/ssm00/AMS/assets/97657265/d51f59af-cd36-4305-9cec-72b49dadca45" width="450" height="300">
+<img src="https://github.com/ssm00/AMS/assets/97657265/8f75d422-1c44-4a62-933d-26336242a22d" width="450" height="300">
 <br>
 
 #### 메인페이지
 
 <br>
-<img src="https://github.com/ssm00/AMS/assets/97657265/3a3323eb-434b-402b-84e7-dd95d037197f" width="500" height="300">
-<img src="https://github.com/ssm00/AMS/assets/97657265/9c83683a-dd90-4d7c-bf0d-1427a924854a" width="500" height="300">
+<img src="https://github.com/ssm00/AMS/assets/97657265/3a3323eb-434b-402b-84e7-dd95d037197f" width="450" height="300">
+<img src="https://github.com/ssm00/AMS/assets/97657265/9c83683a-dd90-4d7c-bf0d-1427a924854a" width="450" height="300">
 <br>
 
 #### 정답입력 페이지
