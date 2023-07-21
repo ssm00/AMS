@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
+    @Transactional
     public StudentEntity signUpStudent(String userName, String email, String logInId, String password, String schoolName, SchoolType schoolType, Integer grade, String className) throws BaseException {
         if (userName == null || email == null || logInId == null || password == null || schoolType == null || schoolName == null || grade == null || className == null) {
             throw new BaseException(BaseResponseStatus.CREATE_STUDENT_DATA_NULL);
@@ -52,6 +54,7 @@ public class UserService {
      * 가입시 userRepository에서 id확인
      * save는 teacherRepository
      */
+    @Transactional
     public TeacherEntity signUpTeacher(String userName, String email, String logInId, String password, SchoolType schoolType, Integer manageGrade, Subject subject) throws BaseException {
         if (userName == null || email == null || logInId == null || password == null || schoolType == null || manageGrade == null || subject == null) {
             throw new BaseException(BaseResponseStatus.CREATE_TEACHER_DATA_NULL);
@@ -157,6 +160,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public String inputStudentAnswers(String logInId, UserDto.PostInputStudentAnswersReq studentInput) throws BaseException{
         // input = userId(Student), 회차(examNumber), 과목(examSubject), 학생이 작성한 정답(studentAnswer),
         // output = 저장 성공 여부
