@@ -309,3 +309,15 @@ fabric.properties
 .idea/**/azureSettings.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,webstorm,visualstudiocode
+
+# Created by https://www.toptal.com/developers/gitignore/api/elasticbeanstalk
+# Edit at https://www.toptal.com/developers/gitignore?templates=elasticbeanstalk
+
+### ElasticBeanstalk ###
+.elasticbeanstalk/
+
+# End of https://www.toptal.com/developers/gitignore/api/elasticbeanstalk
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
